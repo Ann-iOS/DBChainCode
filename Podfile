@@ -6,5 +6,7 @@ target 'DBChainCode' do
 
   # Pods for DBChainCode
 	pod 'SVProgressHUD'
-#  pod 'SideMenu' , :path => "https://github.com/jonkykong/SideMenu.git"
+  pod 'NewPopMenu', '~> 2.0'
+  pod 'SYProgressView'
+  
 end
