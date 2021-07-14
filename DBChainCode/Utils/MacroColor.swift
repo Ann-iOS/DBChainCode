@@ -8,7 +8,7 @@
 import Foundation
 
 /// 主色调 FFD36C
-let ThemeMainColor : String = "#FFD36C"
+let ThemeMainColor : String = "#0022FF"
 
 /// 副色调 FFE7A1
 let ThemeViceColor : String = "#FFE7A1"

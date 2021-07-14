@@ -53,7 +53,7 @@
                 <outlet property="copyBtn" destination="U4K-X7-jaT" id="Fyw-NE-6xe"/>
                 <outlet property="titleLabel" destination="5Yg-4w-o4S" id="Diq-fO-cTo"/>
             </connections>
-            <point key="canvasLocation" x="206" y="143"/>
+            <point key="canvasLocation" x="113" y="98"/>
         </tableViewCell>
     </objects>
     <resources>

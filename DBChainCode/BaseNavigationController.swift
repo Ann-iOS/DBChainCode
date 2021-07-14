@@ -44,7 +44,7 @@ class BaseNavigationController: UINavigationController, UINavigationControllerDe
         if self.children.count > 0 {
             viewController.hidesBottomBarWhenPushed = true
             //添加图片
-            viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "nav_back")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(leftClick))
+            viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "nav_back_black")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(leftClick))
             //添加文字
 //            viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "返回", style: .plain, target: self, action: #selector(leftClick))
         }

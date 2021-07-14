@@ -8,5 +8,5 @@ target 'DBChainCode' do
 	pod 'SVProgressHUD'
   pod 'NewPopMenu', '~> 2.0'
   pod 'SYProgressView'
-  
+  pod 'SnapKit'
 end

@@ -40,8 +40,8 @@ class HomeListTableViewCell: UITableViewCell {
                 var frame = newValue
                 frame.origin.x += 15
                 frame.size.width -= 2 * 15
-                frame.origin.y += 4
-                frame.size.height -= 2 * 4
+                frame.origin.y += 6
+                frame.size.height -= 2 * 6
                 super.frame = frame
             }
         }

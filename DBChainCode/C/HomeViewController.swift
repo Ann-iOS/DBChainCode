@@ -12,11 +12,13 @@ import SYProgressView
 
 let uploadCodeTimer = "UPLOADCODETIMER"
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UINavigationControllerDelegate {
 
     var waitTime :CGFloat = 30.0
 
     let isTimerExistence = MCGCDTimer.shared.isExistTimer(WithTimerName: uploadCodeTimer)
+    var menuVC :PopMenuViewController?
+    public var addBtn :UIButton?
 
     lazy var timeLabel : UILabel = {
         let label = UILabel()
@@ -50,10 +52,17 @@ class HomeViewController: UIViewController {
         view.showsHorizontalScrollIndicator = false
         view.delegate = self
         view.dataSource = self
+        view.backgroundColor = .white
         view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: kNavAndTabHeight, right: 0)
         view.register(UINib.init(nibName: "HomeListTableViewCell", bundle: nil), forCellReuseIdentifier: HomeListTableViewCell.identifier)
         return view
     }()
+
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.delegate = self
+    }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -70,7 +79,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "库链验证器"
-        self.view.backgroundColor = .white
+        
         let leftItem = UIBarButtonItem.init(image: UIImage(named: "home_left_item"), style: .plain, target: self, action: #selector(showLeftMenu(_:)))
         self.navigationItem.leftBarButtonItem = leftItem
 
@@ -78,23 +87,25 @@ class HomeViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = rightItem
 
         let leftMenu = SideMenuNavigationController(rootViewController: MenuViewController())
-        leftMenu.isNavigationBarHidden = true //侧栏菜单不显示导航栏
+        leftMenu.isNavigationBarHidden = false //侧栏菜单不显示导航栏
         leftMenu.presentationStyle = .menuSlideIn
-        leftMenu.presentationStyle.onTopShadowOpacity = 0.5
-        leftMenu.menuWidth = SCREEN_WIDTH
-        leftMenu.presentationStyle.backgroundColor = .black
+        leftMenu.presentationStyle.onTopShadowColor = .white
+        leftMenu.menuWidth = SCREEN_WIDTH - 65
+        leftMenu.presentationStyle.backgroundColor = .white
+        leftMenu.presentationStyle.onTopShadowOpacity = 1
+        leftMenu.presentationStyle.presentingEndAlpha = 1
         SideMenuManager.default.leftMenuNavigationController = leftMenu
 
         tableView.tableHeaderView = headerView
         view.addSubview(tableView)
 
-        let addBtn = UIButton.init(frame: CGRect(x: SCREEN_WIDTH - 76, y: SCREEN_HEIGHT - kTabBarHeight - 108, width: 60, height: 60))
-        addBtn.backgroundColor = .colorWithHexString("0059FF")
-        addBtn.setImage(UIImage(named: "home_add_code"), for: .normal)
-        addBtn.setImage(UIImage(named: "home_add_code"), for: .highlighted)
-        addBtn.extSetCornerRadius(30)
-        addBtn.addTarget(self, action: #selector(addCodeString), for: .touchUpInside)
-        view.addSubview(addBtn)
+        addBtn = UIButton.init(frame: CGRect(x: SCREEN_WIDTH - 76, y: SCREEN_HEIGHT - kNavBarAndStatusBarHeight - 108, width: 60, height: 60))
+        addBtn!.backgroundColor = .colorWithHexString("0059FF")
+        addBtn!.setImage(UIImage(named: "home_add_code"), for: .normal)
+        addBtn!.setImage(UIImage(named: "home_add_code"), for: .highlighted)
+        addBtn!.extSetCornerRadius(30)
+        addBtn!.addTarget(self, action: #selector(addCodeString), for: .touchUpInside)
+        view.addSubview(addBtn!)
 
         if isTimerExistence == true {
             MCGCDTimer.shared.cancleTimer(WithTimerName: uploadCodeTimer)
@@ -111,6 +122,17 @@ class HomeViewController: UIViewController {
         }
     }
 
+//    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        if operation == .push{
+//            let customAnim = CustomAnimatedTransitioning()
+//            customAnim.isPush = true
+//            return customAnim
+//        } else {
+//            return nil
+//        }
+//    }
+
+
     // 显示左侧菜单
     @objc func showLeftMenu(_ sender: Any) {
         // 显示侧栏菜单
@@ -126,17 +148,27 @@ class HomeViewController: UIViewController {
 
         })]
 
-        let menuVC = PopMenuViewController(actions: actions)
-        menuVC.contentFrame = CGRect(x: SCREEN_WIDTH - 204, y: kNavBarAndStatusBarHeight, width: 180, height: 128)
-        menuVC.appearance.popMenuBackgroundStyle = .dimmed(color: .white, opacity: 0.1)
-        menuVC.appearance.popMenuColor.backgroundColor = .solid(fill: .white)
-        menuVC.appearance.popMenuCornerRadius = 8
-        self.present(menuVC, animated: true, completion: nil)
+        menuVC = PopMenuViewController(actions: actions)
+        menuVC!.contentFrame = CGRect(x: SCREEN_WIDTH - 204, y: kNavBarAndStatusBarHeight, width: 180, height: 128)
+        menuVC!.appearance.popMenuBackgroundStyle = .dimmed(color: .white, opacity: 0.01)
+        menuVC!.appearance.popMenuColor.backgroundColor = .solid(fill: .white)
+        menuVC!.appearance.popMenuCornerRadius = 8
+        self.present(menuVC!, animated: true, completion: nil)
     }
 
     @objc func addCodeString(){
-
+        let toVc = AddCodeViewController()
+        toVc.modalPresentationStyle = .overFullScreen
+        toVc.modalTransitionStyle = .crossDissolve
+        toVc.addCodeSettingKeyStringBlock = {[weak self] in
+            guard let mySelf = self else {return}
+            let vc = SettingCodeViewController()
+            mySelf.navigationController?.pushViewController(vc, animated: true)
+        }
+        self.present(toVc, animated: true, completion: nil)
+//        self.navigationController?.pushViewController(toVc, animated: true)
     }
+
 }
 
 extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewDelegate, UITableViewDataSource {
