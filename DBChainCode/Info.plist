@@ -26,6 +26,8 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSCameraUsageDescription</key>
+	<string>DBChainCode申请使用您的相机, 用于扫描二维码等功能</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Roboto-BoldItalic.ttf</string>

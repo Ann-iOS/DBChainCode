@@ -6,7 +6,8 @@ target 'DBChainCode' do
 
   # Pods for DBChainCode
 	pod 'SVProgressHUD'
-  pod 'NewPopMenu', '~> 2.0'
+  pod 'YBPopupMenu'
   pod 'SYProgressView'
   pod 'SnapKit'
+  pod 'swiftScan', :git => 'https://github.com/MxABC/swiftScan.git' 
 end

@@ -7,11 +7,13 @@
 
 import UIKit
 
-typealias AddCodeWithSettingKeyBlock = () -> ()
 
+typealias AddCodeWithSettingKeyBlock = () -> ()
+typealias AddCodeWithScanClick = () -> ()
 class AddCodeViewController: UIViewController, UINavigationControllerDelegate {
 
     var addCodeSettingKeyStringBlock :AddCodeWithSettingKeyBlock?
+    var addCodeWithScanClick: AddCodeWithScanClick?
 
     public var cancelBtn :UIButton?
 
@@ -102,9 +104,14 @@ class AddCodeViewController: UIViewController, UINavigationControllerDelegate {
     }
 
     @objc func scanBtnClick() {
-
+        self.dismiss(animated: false) {
+            if self.addCodeWithScanClick != nil {
+                self.addCodeWithScanClick!()
+            }
+        }
     }
 
+  
     @objc func settingKeyBtnClick() {
         self.dismiss(animated: false) {
             if self.addCodeSettingKeyStringBlock != nil {

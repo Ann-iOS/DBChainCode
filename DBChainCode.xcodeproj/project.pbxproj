@@ -53,6 +53,9 @@
 		81659AD9269C330F005C9336 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81659ABA269C330F005C9336 /* Enum.swift */; };
 		81659ADE269C3461005C9336 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81659ADD269C3461005C9336 /* HomeViewController.swift */; };
 		81659AEF269C44F7005C9336 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81659AEE269C44F7005C9336 /* MenuViewController.swift */; };
+		81660DF7269FCA4000A94D75 /* ExportCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81660DF6269FCA4000A94D75 /* ExportCodeViewController.swift */; };
+		81660DFA269FD0AC00A94D75 /* ExportSelectCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81660DF9269FD0AC00A94D75 /* ExportSelectCodeViewController.swift */; };
+		81660E0B26A005C600A94D75 /* CodeScan.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 81660E0A26A005C600A94D75 /* CodeScan.bundle */; };
 		8171BA67269C4BF700686093 /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8171BA66269C4BF700686093 /* SVProgressHUD.framework */; };
 		8171BA6B269C506400686093 /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 8171BA6A269C506400686093 /* SideMenu */; };
 		81A227A9269D931100F9E7E5 /* MCGCDTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A227A8269D929E00F9E7E5 /* MCGCDTime.swift */; };
@@ -115,6 +118,9 @@
 		81659ABA269C330F005C9336 /* Enum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 		81659ADD269C3461005C9336 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		81659AEE269C44F7005C9336 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		81660DF6269FCA4000A94D75 /* ExportCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportCodeViewController.swift; sourceTree = "<group>"; };
+		81660DF9269FD0AC00A94D75 /* ExportSelectCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSelectCodeViewController.swift; sourceTree = "<group>"; };
+		81660E0A26A005C600A94D75 /* CodeScan.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CodeScan.bundle; sourceTree = "<group>"; };
 		8171BA64269C4BF700686093 /* SideMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SideMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8171BA66269C4BF700686093 /* SVProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SVProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81A227A8269D929E00F9E7E5 /* MCGCDTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCGCDTime.swift; sourceTree = "<group>"; };
@@ -181,6 +187,7 @@
 		81659A5E269C22FC005C9336 /* DBChainCode */ = {
 			isa = PBXGroup;
 			children = (
+				81660E0A26A005C600A94D75 /* CodeScan.bundle */,
 				81A227A7269D928E00F9E7E5 /* Tools */,
 				81659ADC269C3342005C9336 /* V */,
 				81659ADB269C333A005C9336 /* C */,
@@ -253,6 +260,8 @@
 				815A6697269EE87C00E54774 /* PrivacyFaceIDViewController.swift */,
 				815A669A269EE8D500E54774 /* UsageIDViewController.swift */,
 				815A669E269EF01A00E54774 /* FeedBackViewController.swift */,
+				81660DF6269FCA4000A94D75 /* ExportCodeViewController.swift */,
+				81660DF9269FD0AC00A94D75 /* ExportSelectCodeViewController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -346,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81659A6C269C22FE005C9336 /* LaunchScreen.storyboard in Resources */,
+				81660E0B26A005C600A94D75 /* CodeScan.bundle in Resources */,
 				81659A69269C22FE005C9336 /* Assets.xcassets in Resources */,
 				81B004B9269D440200F46EC2 /* HomeListTableViewCell.xib in Resources */,
 				81B004BC269D6B7000F46EC2 /* Roboto-BoldItalic.ttf in Resources */,
@@ -403,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81A227A9269D931100F9E7E5 /* MCGCDTime.swift in Sources */,
+				81660DFA269FD0AC00A94D75 /* ExportSelectCodeViewController.swift in Sources */,
 				815A668A269EC3E300E54774 /* AddCodeViewController.swift in Sources */,
 				815A6698269EE87C00E54774 /* PrivacyFaceIDViewController.swift in Sources */,
 				81659AD4269C330F005C9336 /* OTCTextFeild.swift in Sources */,
@@ -439,6 +450,7 @@
 				81659ABB269C330F005C9336 /* PublicFunc.swift in Sources */,
 				81659A77269C32D2005C9336 /* BaseNavigationController.swift in Sources */,
 				81659ACC269C330F005C9336 /* UITextFiledExtension.swift in Sources */,
+				81660DF7269FCA4000A94D75 /* ExportCodeViewController.swift in Sources */,
 				81659AD1269C330F005C9336 /* EXNavigationPresenter.swift in Sources */,
 				81659AC4269C330F005C9336 /* ArrayExtension.swift in Sources */,
 				81B004CA269D7C1400F46EC2 /* CircleProgressView.swift in Sources */,

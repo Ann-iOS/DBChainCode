@@ -7,17 +7,19 @@
 
 import UIKit
 import SideMenu
-import PopMenu
+import YBPopupMenu
 import SYProgressView
+import swiftScan
+import Photos
 
 let uploadCodeTimer = "UPLOADCODETIMER"
 
-class HomeViewController: UIViewController, UINavigationControllerDelegate {
+class HomeViewController: UIViewController, UINavigationControllerDelegate, YBPopupMenuDelegate ,LBXScanViewControllerDelegate {
 
     var waitTime :CGFloat = 30.0
 
     let isTimerExistence = MCGCDTimer.shared.isExistTimer(WithTimerName: uploadCodeTimer)
-    var menuVC :PopMenuViewController?
+
     public var addBtn :UIButton?
 
     lazy var timeLabel : UILabel = {
@@ -58,6 +60,7 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         return view
     }()
 
+    var rightItem = UIButton.init()
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -83,8 +86,9 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         let leftItem = UIBarButtonItem.init(image: UIImage(named: "home_left_item"), style: .plain, target: self, action: #selector(showLeftMenu(_:)))
         self.navigationItem.leftBarButtonItem = leftItem
 
-        let rightItem = UIBarButtonItem.init(image: UIImage(named: "home_more_item"), style: .plain, target: self, action: #selector(presentMenu(_:)))
-        self.navigationItem.rightBarButtonItem = rightItem
+        rightItem.setImage(UIImage(named: "home_more_item"), for: .normal)
+        rightItem.addTarget(self, action: #selector(presentMenu(_:)), for: .touchUpInside)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightItem)
 
         let leftMenu = SideMenuNavigationController(rootViewController: MenuViewController())
         leftMenu.isNavigationBarHidden = false //侧栏菜单不显示导航栏
@@ -122,17 +126,6 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
         }
     }
 
-//    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        if operation == .push{
-//            let customAnim = CustomAnimatedTransitioning()
-//            customAnim.isPush = true
-//            return customAnim
-//        } else {
-//            return nil
-//        }
-//    }
-
-
     // 显示左侧菜单
     @objc func showLeftMenu(_ sender: Any) {
         // 显示侧栏菜单
@@ -142,18 +135,16 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
 
     // 展示一个弹出菜单
     @objc func presentMenu(_ sender: UIButton) {
-        let actions = [PopMenuDefaultAction(title: "修改列表", image: UIImage(named: "home_motify_code"), color: .black, didSelect: { (modifyBtn) in
-
-        }),PopMenuDefaultAction(title: "导出账号", image: UIImage(named: "home_export_code"), color: .black, didSelect: { (exportBtn) in
-
-        })]
-
-        menuVC = PopMenuViewController(actions: actions)
-        menuVC!.contentFrame = CGRect(x: SCREEN_WIDTH - 204, y: kNavBarAndStatusBarHeight, width: 180, height: 128)
-        menuVC!.appearance.popMenuBackgroundStyle = .dimmed(color: .white, opacity: 0.01)
-        menuVC!.appearance.popMenuColor.backgroundColor = .solid(fill: .white)
-        menuVC!.appearance.popMenuCornerRadius = 8
-        self.present(menuVC!, animated: true, completion: nil)
+        YBPopupMenu.showRely(on: rightItem, titles: ["修改列表","导出账号"], icons: ["home_motify_code","home_export_code"], menuWidth: 180) { (menu) in
+            menu?.delegate = self
+            menu!.animationManager.duration = 0.1
+            menu!.cornerRadius = 8
+            menu!.itemHeight = 64
+            menu!.arrowDirection = .none
+            menu!.arrowPosition = 0
+            menu!.tableView.separatorStyle = .none
+            menu!.borderColor = .clear
+        }
     }
 
     @objc func addCodeString(){
@@ -165,10 +156,74 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate {
             let vc = SettingCodeViewController()
             mySelf.navigationController?.pushViewController(vc, animated: true)
         }
+
+        toVc.addCodeWithScanClick = {[weak self] in
+            guard let mySelf = self else {return}
+            if mySelf.isRightCamera() {
+                var style = LBXScanViewStyle()
+                style.centerUpOffset = 44
+                style.photoframeAngleStyle = LBXScanViewPhotoframeAngleStyle.On
+                style.photoframeLineW = 6
+                style.photoframeAngleW = 24
+                style.photoframeAngleH = 24
+                style.isNeedShowRetangle = true
+
+                style.anmiationStyle = LBXScanViewAnimationStyle.NetGrid
+
+                //使用的里面网格图片
+                style.animationImage = UIImage(named: "CodeScan.bundle/qrcode_scan_part_net")
+                let vc = LBXScanViewController()
+                vc.scanStyle = style
+                vc.scanResultDelegate = self
+                vc.title = "扫一扫"
+                mySelf.navigationController?.pushViewController(vc, animated: true)
+
+            } else {
+
+                let alertController = UIAlertController(title: "提示",message: "请打开相机权限",preferredStyle: .alert)
+                let settingsAction = UIAlertAction(title: "设置", style: .default) { (alertAction) in
+                    if let appSettings = NSURL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.openURL(appSettings as URL)
+                        }
+                    }
+                alertController.addAction(settingsAction)
+                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+                alertController.addAction(cancelAction)
+                mySelf.present(alertController, animated: true, completion: nil)
+            }
+        }
         self.present(toVc, animated: true, completion: nil)
-//        self.navigationController?.pushViewController(toVc, animated: true)
     }
 
+    
+    /// 相机权限
+    /// - Returns: 权限状态
+    func isRightCamera() -> Bool {
+
+        let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+
+        return authStatus != .restricted && authStatus != .denied
+    }
+
+    func scanFinished(scanResult: LBXScanResult, error: String?) {
+
+        print(scanResult.strScanned!)
+        if scanResult.strScanned!.count > 0 {
+
+        } else {
+
+        }
+    }
+
+
+    func ybPopupMenu(_ ybPopupMenu: YBPopupMenu!, didSelectedAt index: Int) {
+        if index == 0 {
+            
+        } else {
+            let vc = ExportCodeViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }
 
 extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewDelegate, UITableViewDataSource {
