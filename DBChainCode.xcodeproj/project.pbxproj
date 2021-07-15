@@ -56,6 +56,12 @@
 		81660DF7269FCA4000A94D75 /* ExportCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81660DF6269FCA4000A94D75 /* ExportCodeViewController.swift */; };
 		81660DFA269FD0AC00A94D75 /* ExportSelectCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81660DF9269FD0AC00A94D75 /* ExportSelectCodeViewController.swift */; };
 		81660E0B26A005C600A94D75 /* CodeScan.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 81660E0A26A005C600A94D75 /* CodeScan.bundle */; };
+		81660E1326A00B2000A94D75 /* ModifyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81660E1226A00B2000A94D75 /* ModifyListViewController.swift */; };
+		81660E1726A0140C00A94D75 /* ModifyListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81660E1526A0140C00A94D75 /* ModifyListTableViewCell.swift */; };
+		81660E1826A0140C00A94D75 /* ModifyListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81660E1626A0140C00A94D75 /* ModifyListTableViewCell.xib */; };
+		81660E4226A0361100A94D75 /* TOTPGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 81660E3A26A0308F00A94D75 /* TOTPGenerator.m */; };
+		81660E4326A0361100A94D75 /* GTMStringEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 81660E3B26A0308F00A94D75 /* GTMStringEncoding.m */; };
+		81660E4426A0361100A94D75 /* OTPGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 81660E3926A0308F00A94D75 /* OTPGenerator.m */; };
 		8171BA67269C4BF700686093 /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8171BA66269C4BF700686093 /* SVProgressHUD.framework */; };
 		8171BA6B269C506400686093 /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 8171BA6A269C506400686093 /* SideMenu */; };
 		81A227A9269D931100F9E7E5 /* MCGCDTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A227A8269D929E00F9E7E5 /* MCGCDTime.swift */; };
@@ -121,6 +127,16 @@
 		81660DF6269FCA4000A94D75 /* ExportCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportCodeViewController.swift; sourceTree = "<group>"; };
 		81660DF9269FD0AC00A94D75 /* ExportSelectCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSelectCodeViewController.swift; sourceTree = "<group>"; };
 		81660E0A26A005C600A94D75 /* CodeScan.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CodeScan.bundle; sourceTree = "<group>"; };
+		81660E1226A00B2000A94D75 /* ModifyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyListViewController.swift; sourceTree = "<group>"; };
+		81660E1526A0140C00A94D75 /* ModifyListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyListTableViewCell.swift; sourceTree = "<group>"; };
+		81660E1626A0140C00A94D75 /* ModifyListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModifyListTableViewCell.xib; sourceTree = "<group>"; };
+		81660E3926A0308F00A94D75 /* OTPGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OTPGenerator.m; sourceTree = "<group>"; };
+		81660E3A26A0308F00A94D75 /* TOTPGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TOTPGenerator.m; sourceTree = "<group>"; };
+		81660E3B26A0308F00A94D75 /* GTMStringEncoding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTMStringEncoding.m; sourceTree = "<group>"; };
+		81660E3C26A0308F00A94D75 /* OTPGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OTPGenerator.h; sourceTree = "<group>"; };
+		81660E3D26A0308F00A94D75 /* GTMDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		81660E3E26A0308F00A94D75 /* GTMStringEncoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMStringEncoding.h; sourceTree = "<group>"; };
+		81660E3F26A0308F00A94D75 /* TOTPGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOTPGenerator.h; sourceTree = "<group>"; };
 		8171BA64269C4BF700686093 /* SideMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SideMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8171BA66269C4BF700686093 /* SVProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SVProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81A227A8269D929E00F9E7E5 /* MCGCDTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCGCDTime.swift; sourceTree = "<group>"; };
@@ -187,6 +203,8 @@
 		81659A5E269C22FC005C9336 /* DBChainCode */ = {
 			isa = PBXGroup;
 			children = (
+				81B004C3269D778700F46EC2 /* DBChainCode-Bridging-Header.h */,
+				81660E3826A0308F00A94D75 /* OTP */,
 				81660E0A26A005C600A94D75 /* CodeScan.bundle */,
 				81A227A7269D928E00F9E7E5 /* Tools */,
 				81659ADC269C3342005C9336 /* V */,
@@ -194,12 +212,12 @@
 				81659A9A269C330E005C9336 /* Utils */,
 				81659A5F269C22FC005C9336 /* AppDelegate.swift */,
 				81659A63269C22FC005C9336 /* ViewController.swift */,
+				81659A76269C32D2005C9336 /* BaseNavigationController.swift */,
 				81659A65269C22FC005C9336 /* Main.storyboard */,
 				81659A68269C22FE005C9336 /* Assets.xcassets */,
 				81659A6A269C22FE005C9336 /* LaunchScreen.storyboard */,
 				81659A6D269C22FE005C9336 /* Info.plist */,
 				81B004BB269D6B7000F46EC2 /* Roboto-BoldItalic.ttf */,
-				81659A76269C32D2005C9336 /* BaseNavigationController.swift */,
 			);
 			path = DBChainCode;
 			sourceTree = "<group>";
@@ -262,6 +280,7 @@
 				815A669E269EF01A00E54774 /* FeedBackViewController.swift */,
 				81660DF6269FCA4000A94D75 /* ExportCodeViewController.swift */,
 				81660DF9269FD0AC00A94D75 /* ExportSelectCodeViewController.swift */,
+				81660E1226A00B2000A94D75 /* ModifyListViewController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -271,12 +290,27 @@
 			children = (
 				81B004B6269D440200F46EC2 /* HomeListTableViewCell.swift */,
 				81B004B7269D440200F46EC2 /* HomeListTableViewCell.xib */,
-				81B004C3269D778700F46EC2 /* DBChainCode-Bridging-Header.h */,
 				81B004C9269D7C1400F46EC2 /* CircleProgressView.swift */,
 				81B004D8269D820B00F46EC2 /* RPCircularProgress.swift */,
 				815A6694269EDD9E00E54774 /* SettingCodeView.swift */,
+				81660E1526A0140C00A94D75 /* ModifyListTableViewCell.swift */,
+				81660E1626A0140C00A94D75 /* ModifyListTableViewCell.xib */,
 			);
 			path = V;
+			sourceTree = "<group>";
+		};
+		81660E3826A0308F00A94D75 /* OTP */ = {
+			isa = PBXGroup;
+			children = (
+				81660E3F26A0308F00A94D75 /* TOTPGenerator.h */,
+				81660E3A26A0308F00A94D75 /* TOTPGenerator.m */,
+				81660E3E26A0308F00A94D75 /* GTMStringEncoding.h */,
+				81660E3B26A0308F00A94D75 /* GTMStringEncoding.m */,
+				81660E3C26A0308F00A94D75 /* OTPGenerator.h */,
+				81660E3926A0308F00A94D75 /* OTPGenerator.m */,
+				81660E3D26A0308F00A94D75 /* GTMDefines.h */,
+			);
+			path = OTP;
 			sourceTree = "<group>";
 		};
 		81A227A7269D928E00F9E7E5 /* Tools */ = {
@@ -357,6 +391,7 @@
 				81659A6C269C22FE005C9336 /* LaunchScreen.storyboard in Resources */,
 				81660E0B26A005C600A94D75 /* CodeScan.bundle in Resources */,
 				81659A69269C22FE005C9336 /* Assets.xcassets in Resources */,
+				81660E1826A0140C00A94D75 /* ModifyListTableViewCell.xib in Resources */,
 				81B004B9269D440200F46EC2 /* HomeListTableViewCell.xib in Resources */,
 				81B004BC269D6B7000F46EC2 /* Roboto-BoldItalic.ttf in Resources */,
 				81659A67269C22FC005C9336 /* Main.storyboard in Resources */,
@@ -412,6 +447,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81660E4226A0361100A94D75 /* TOTPGenerator.m in Sources */,
+				81660E4326A0361100A94D75 /* GTMStringEncoding.m in Sources */,
+				81660E4426A0361100A94D75 /* OTPGenerator.m in Sources */,
 				81A227A9269D931100F9E7E5 /* MCGCDTime.swift in Sources */,
 				81660DFA269FD0AC00A94D75 /* ExportSelectCodeViewController.swift in Sources */,
 				815A668A269EC3E300E54774 /* AddCodeViewController.swift in Sources */,
@@ -440,12 +478,14 @@
 				81659AC0269C330F005C9336 /* UIButtonExtension.swift in Sources */,
 				81659AC9269C330F005C9336 /* TableViewExt.swift in Sources */,
 				81659ABD269C330F005C9336 /* Extension.swift in Sources */,
+				81660E1326A00B2000A94D75 /* ModifyListViewController.swift in Sources */,
 				81659ACA269C330F005C9336 /* UIViewExtension.swift in Sources */,
 				81659AC5269C330F005C9336 /* UITextFieldExtension.swift in Sources */,
 				81659AD7269C330F005C9336 /* ThemeFont.swift in Sources */,
 				81659AC2269C330F005C9336 /* UIColorExtension.swift in Sources */,
 				815A669F269EF01A00E54774 /* FeedBackViewController.swift in Sources */,
 				81659AD8269C330F005C9336 /* SaveFiles.swift in Sources */,
+				81660E1726A0140C00A94D75 /* ModifyListTableViewCell.swift in Sources */,
 				81659AD3269C330F005C9336 /* FileTools.swift in Sources */,
 				81659ABB269C330F005C9336 /* PublicFunc.swift in Sources */,
 				81659A77269C32D2005C9336 /* BaseNavigationController.swift in Sources */,
@@ -619,7 +659,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dzh.com.DBChainCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "DBChainCode/V/DBChainCode-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "DBChainCode/DBChainCode-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -643,7 +683,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dzh.com.DBChainCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "DBChainCode/V/DBChainCode-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "DBChainCode/DBChainCode-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

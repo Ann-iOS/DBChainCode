@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import SVProgressHUD
 
+typealias SettingAddCodeButtonBlock = (_ account:String,_ keyStr: String) -> ()
 class SettingCodeView: UIView, UITextFieldDelegate {
+
+    var addCodeButtonBlock:SettingAddCodeButtonBlock?
 
     lazy var accountTextField : UITextField = {
         let tf = UITextField()
@@ -86,7 +90,15 @@ class SettingCodeView: UIView, UITextFieldDelegate {
     }
 
     @objc func addAccountBtnClick(){
-
+        if self.accountTextField.text!.isBlank {
+            SVProgressHUD.showError(withStatus: "请输入账号")
+        } else if self.keyTextField.text!.isBlank {
+            SVProgressHUD.showError(withStatus: "请输入密钥")
+        } else {
+            if self.addCodeButtonBlock != nil {
+                self.addCodeButtonBlock!(self.accountTextField.text!,self.keyTextField.text!)
+            }
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -97,7 +109,6 @@ class SettingCodeView: UIView, UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         accountTextField.extSetBorderWidth(2, color: .clear)
         keyTextField.extSetBorderWidth(2, color: .clear)
-
         if textField.tag == 300 {
             accountTextField.extSetBorderWidth(2, color: .colorWithHexString(ThemeMainColor))
         } else if textField.tag == 301 {

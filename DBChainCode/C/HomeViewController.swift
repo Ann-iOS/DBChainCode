@@ -199,14 +199,11 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, YBPo
     /// 相机权限
     /// - Returns: 权限状态
     func isRightCamera() -> Bool {
-
         let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
-
         return authStatus != .restricted && authStatus != .denied
     }
 
     func scanFinished(scanResult: LBXScanResult, error: String?) {
-
         print(scanResult.strScanned!)
         if scanResult.strScanned!.count > 0 {
 
@@ -218,7 +215,10 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, YBPo
 
     func ybPopupMenu(_ ybPopupMenu: YBPopupMenu!, didSelectedAt index: Int) {
         if index == 0 {
-            
+            let vc = ModifyListViewController()
+            let nav = BaseNavigationController.init(rootViewController: vc)
+            nav.modalPresentationStyle = .overFullScreen
+            self.present(nav, animated: true, completion: nil)
         } else {
             let vc = ExportCodeViewController()
             self.navigationController?.pushViewController(vc, animated: true)
