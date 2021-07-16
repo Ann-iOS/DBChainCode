@@ -14,8 +14,9 @@ import Photos
 
 let uploadCodeTimer = "UPLOADCODETIMER"
 
-class HomeViewController: UIViewController, UINavigationControllerDelegate, YBPopupMenuDelegate ,LBXScanViewControllerDelegate {
+class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewControllerDelegate {
 
+    /// 列表刷新时间
     var waitTime :CGFloat = 30.0
 
     let isTimerExistence = MCGCDTimer.shared.isExistTimer(WithTimerName: uploadCodeTimer)
@@ -61,10 +62,26 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, YBPo
     }()
 
     var rightItem = UIButton.init()
+    var codeListArr :[[String:Any]] = [] {
+        didSet{
+            self.tableView.reloadData()
+        }
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.delegate = self
+
+        if FileTools.sharedInstance.isFileExisted(path: codePath) {
+            /// 已经存在
+            print("++++++++++++++++++++++++++++++")
+            let dpathArr = NSArray(contentsOfFile: codePath)
+            self.codeListArr = dpathArr as! [[String:Any]]
+
+            print("plist 数组: \(dpathArr!)")
+        } else {
+            /// 没有数据
+            print("没有数据!!!!")
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -120,6 +137,38 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, YBPo
             mySelf.gressview.progress = CGFloat(1 - mySelf.waitTime / 30)
             mySelf.waitTime -= 0.01
             if mySelf.waitTime < 0 {
+                var dicArr :[[String:Any]] = []
+                if FileTools.sharedInstance.isFileExisted(path: codePath) == true {
+                    /// 已经存在  更新数据
+                    let pathArr = NSArray(contentsOfFile: codePath)
+
+                    if pathArr?.count ?? 0 > 0  {
+                        let tempArr = pathArr as! [[String:Any]]
+
+                        for (idx,tempDic) in tempArr.enumerated() {
+                            print(tempDic["name"] as! String)
+                            print(tempDic["keyStr"] as! String)
+                            /// 刷新Code
+                            let data = DBase32().addOTPWithTimerLag(keyStr: tempDic["keyStr"]! as! String)
+                            let generator = TOTPGenerator.init(secret: data, algorithm: kOTPGeneratorSHA1Algorithm, digits: 6,period: 30)
+                            let code = generator?.generateOTP()
+                            if code != nil {
+                                let dic :Dictionary<String,Any> = ["name":tempDic["name"] as! String,
+                                                                   "keyStr":tempDic["keyStr"] as! String,
+                                                                   "index":tempDic["index"] as! String,
+                                                                   "code":code!]
+                                dicArr.append(dic)
+                            }
+
+                            if idx == tempArr.count - 1 {
+                                print("重新生成的Code数据: \(dicArr)")
+                                NSArray(array: dicArr).write(toFile: codePath, atomically: true)
+                                mySelf.codeListArr = dicArr
+                            }
+                        }
+                    }
+                }
+
                 mySelf.waitTime = 30 - 0.01
             }
             mySelf.timeLabel.text = "\(Int(mySelf.waitTime) + 1)s"
@@ -212,7 +261,6 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, YBPo
         }
     }
 
-
     func ybPopupMenu(_ ybPopupMenu: YBPopupMenu!, didSelectedAt index: Int) {
         if index == 0 {
             let vc = ModifyListViewController()
@@ -233,7 +281,7 @@ extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewD
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 16
+        return self.codeListArr.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -243,6 +291,8 @@ extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewD
             cell = HomeListTableViewCell.init(style: .default, reuseIdentifier: HomeListTableViewCell.identifier)
         }
         cell?.selectionStyle = .none
+        cell?.titleLabel.text = self.codeListArr[indexPath.row]["name"] as? String
+        cell?.codeLabel.text = self.codeListArr[indexPath.row]["code"] as? String
         return cell!
     }
 

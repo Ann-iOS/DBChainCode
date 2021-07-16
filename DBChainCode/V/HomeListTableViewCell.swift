@@ -15,7 +15,13 @@ class HomeListTableViewCell: UITableViewCell {
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet weak var copyBtn: UIButton!
 
-
+//    var model = HomeCodeListModel(){
+//        didSet{
+//            titleLabel.text = model.accountStr
+//            codeLabel.text = model.keyStr
+//        }
+//    }
+//
     override func awakeFromNib() {
         super.awakeFromNib()
 

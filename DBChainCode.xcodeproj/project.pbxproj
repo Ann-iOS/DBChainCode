@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8107853426A1528B00ED1D0A /* HomeCodeListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107853326A1528B00ED1D0A /* HomeCodeListModel.swift */; };
+		8114173026A1542300AFAF93 /* DBase32.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107853026A1526E00ED1D0A /* DBase32.swift */; };
+		8114173126A1542300AFAF93 /* MCGCDTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107853126A1526E00ED1D0A /* MCGCDTime.swift */; };
+		8114173226A1542300AFAF93 /* CustomAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107853226A1526E00ED1D0A /* CustomAnimatedTransitioning.swift */; };
 		815A6687269EB2BE00E54774 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815A6686269EB2BE00E54774 /* SettingViewController.swift */; };
 		815A668A269EC3E300E54774 /* AddCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815A6689269EC3E300E54774 /* AddCodeViewController.swift */; };
-		815A668E269ECA0E00E54774 /* CustomAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815A668D269ECA0E00E54774 /* CustomAnimatedTransitioning.swift */; };
 		815A6692269EDD8400E54774 /* SettingCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815A6691269EDD8400E54774 /* SettingCodeViewController.swift */; };
 		815A6695269EDD9E00E54774 /* SettingCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815A6694269EDD9E00E54774 /* SettingCodeView.swift */; };
 		815A6698269EE87C00E54774 /* PrivacyFaceIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815A6697269EE87C00E54774 /* PrivacyFaceIDViewController.swift */; };
@@ -64,7 +67,6 @@
 		81660E4426A0361100A94D75 /* OTPGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 81660E3926A0308F00A94D75 /* OTPGenerator.m */; };
 		8171BA67269C4BF700686093 /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8171BA66269C4BF700686093 /* SVProgressHUD.framework */; };
 		8171BA6B269C506400686093 /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 8171BA6A269C506400686093 /* SideMenu */; };
-		81A227A9269D931100F9E7E5 /* MCGCDTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A227A8269D929E00F9E7E5 /* MCGCDTime.swift */; };
 		81B004B8269D440200F46EC2 /* HomeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B004B6269D440200F46EC2 /* HomeListTableViewCell.swift */; };
 		81B004B9269D440200F46EC2 /* HomeListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81B004B7269D440200F46EC2 /* HomeListTableViewCell.xib */; };
 		81B004BC269D6B7000F46EC2 /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81B004BB269D6B7000F46EC2 /* Roboto-BoldItalic.ttf */; };
@@ -76,9 +78,12 @@
 /* Begin PBXFileReference section */
 		06D5FC66AB045CDD3BD5BAB2 /* Pods-DBChainCode.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBChainCode.release.xcconfig"; path = "Target Support Files/Pods-DBChainCode/Pods-DBChainCode.release.xcconfig"; sourceTree = "<group>"; };
 		1A45A9C5BCD313A1A3CB497F /* Pods_DBChainCode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DBChainCode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8107853026A1526E00ED1D0A /* DBase32.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBase32.swift; sourceTree = "<group>"; };
+		8107853126A1526E00ED1D0A /* MCGCDTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCGCDTime.swift; sourceTree = "<group>"; };
+		8107853226A1526E00ED1D0A /* CustomAnimatedTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnimatedTransitioning.swift; sourceTree = "<group>"; };
+		8107853326A1528B00ED1D0A /* HomeCodeListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCodeListModel.swift; sourceTree = "<group>"; };
 		815A6686269EB2BE00E54774 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		815A6689269EC3E300E54774 /* AddCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCodeViewController.swift; sourceTree = "<group>"; };
-		815A668D269ECA0E00E54774 /* CustomAnimatedTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnimatedTransitioning.swift; sourceTree = "<group>"; };
 		815A6691269EDD8400E54774 /* SettingCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCodeViewController.swift; sourceTree = "<group>"; };
 		815A6694269EDD9E00E54774 /* SettingCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCodeView.swift; sourceTree = "<group>"; };
 		815A6697269EE87C00E54774 /* PrivacyFaceIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyFaceIDViewController.swift; sourceTree = "<group>"; };
@@ -139,7 +144,6 @@
 		81660E3F26A0308F00A94D75 /* TOTPGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOTPGenerator.h; sourceTree = "<group>"; };
 		8171BA64269C4BF700686093 /* SideMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SideMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8171BA66269C4BF700686093 /* SVProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SVProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		81A227A8269D929E00F9E7E5 /* MCGCDTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCGCDTime.swift; sourceTree = "<group>"; };
 		81B004B6269D440200F46EC2 /* HomeListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListTableViewCell.swift; sourceTree = "<group>"; };
 		81B004B7269D440200F46EC2 /* HomeListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeListTableViewCell.xib; sourceTree = "<group>"; };
 		81B004BB269D6B7000F46EC2 /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -182,6 +186,24 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		8107852E26A1524500ED1D0A /* M */ = {
+			isa = PBXGroup;
+			children = (
+				8107853326A1528B00ED1D0A /* HomeCodeListModel.swift */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		8107852F26A1526E00ED1D0A /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				8107853026A1526E00ED1D0A /* DBase32.swift */,
+				8107853126A1526E00ED1D0A /* MCGCDTime.swift */,
+				8107853226A1526E00ED1D0A /* CustomAnimatedTransitioning.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		81659A53269C22FC005C9336 = {
 			isa = PBXGroup;
 			children = (
@@ -204,9 +226,10 @@
 			isa = PBXGroup;
 			children = (
 				81B004C3269D778700F46EC2 /* DBChainCode-Bridging-Header.h */,
+				8107852F26A1526E00ED1D0A /* Tools */,
 				81660E3826A0308F00A94D75 /* OTP */,
 				81660E0A26A005C600A94D75 /* CodeScan.bundle */,
-				81A227A7269D928E00F9E7E5 /* Tools */,
+				8107852E26A1524500ED1D0A /* M */,
 				81659ADC269C3342005C9336 /* V */,
 				81659ADB269C333A005C9336 /* C */,
 				81659A9A269C330E005C9336 /* Utils */,
@@ -230,6 +253,7 @@
 				81659A9D269C330E005C9336 /* Extension.swift */,
 				81659A9E269C330E005C9336 /* Macro.swift */,
 				81659A9F269C330E005C9336 /* KeyedDecodingContainer+Extension.swift */,
+				81659AB4269C330E005C9336 /* FileTools.swift */,
 				81659AA0269C330E005C9336 /* ViewExt */,
 				81659AB8269C330F005C9336 /* ThemeFont.swift */,
 				81659AB9269C330F005C9336 /* SaveFiles.swift */,
@@ -259,7 +283,6 @@
 				81659AB1269C330E005C9336 /* StringExtension.swift */,
 				81659AB2269C330E005C9336 /* EXNavigationPresenter.swift */,
 				81659AB3269C330E005C9336 /* UIImageExtension.swift */,
-				81659AB4269C330E005C9336 /* FileTools.swift */,
 				81659AB5269C330E005C9336 /* OTCTextFeild.swift */,
 				81659AB6269C330F005C9336 /* UIProgressViewExtension.swift */,
 				81659AB7269C330F005C9336 /* UISegmentedControlExtension.swift */,
@@ -311,15 +334,6 @@
 				81660E3D26A0308F00A94D75 /* GTMDefines.h */,
 			);
 			path = OTP;
-			sourceTree = "<group>";
-		};
-		81A227A7269D928E00F9E7E5 /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				815A668D269ECA0E00E54774 /* CustomAnimatedTransitioning.swift */,
-				81A227A8269D929E00F9E7E5 /* MCGCDTime.swift */,
-			);
-			path = Tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -447,15 +461,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8114173026A1542300AFAF93 /* DBase32.swift in Sources */,
+				8114173126A1542300AFAF93 /* MCGCDTime.swift in Sources */,
+				8114173226A1542300AFAF93 /* CustomAnimatedTransitioning.swift in Sources */,
 				81660E4226A0361100A94D75 /* TOTPGenerator.m in Sources */,
 				81660E4326A0361100A94D75 /* GTMStringEncoding.m in Sources */,
 				81660E4426A0361100A94D75 /* OTPGenerator.m in Sources */,
-				81A227A9269D931100F9E7E5 /* MCGCDTime.swift in Sources */,
 				81660DFA269FD0AC00A94D75 /* ExportSelectCodeViewController.swift in Sources */,
 				815A668A269EC3E300E54774 /* AddCodeViewController.swift in Sources */,
 				815A6698269EE87C00E54774 /* PrivacyFaceIDViewController.swift in Sources */,
 				81659AD4269C330F005C9336 /* OTCTextFeild.swift in Sources */,
-				815A668E269ECA0E00E54774 /* CustomAnimatedTransitioning.swift in Sources */,
 				81659AC1269C330F005C9336 /* UIImageViewExtension.swift in Sources */,
 				81659AD5269C330F005C9336 /* UIProgressViewExtension.swift in Sources */,
 				81659A64269C22FC005C9336 /* ViewController.swift in Sources */,
@@ -496,6 +511,7 @@
 				81B004CA269D7C1400F46EC2 /* CircleProgressView.swift in Sources */,
 				81659AD6269C330F005C9336 /* UISegmentedControlExtension.swift in Sources */,
 				81659AD9269C330F005C9336 /* Enum.swift in Sources */,
+				8107853426A1528B00ED1D0A /* HomeCodeListModel.swift in Sources */,
 				815A6687269EB2BE00E54774 /* SettingViewController.swift in Sources */,
 				81659AEF269C44F7005C9336 /* MenuViewController.swift in Sources */,
 				81659ACD269C330F005C9336 /* UIStackView+Extension.swift in Sources */,
