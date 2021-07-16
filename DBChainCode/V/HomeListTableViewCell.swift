@@ -7,6 +7,7 @@
 
 import UIKit
 
+typealias HomeListCopyCodeWithCellBlock = (_ cell:HomeListTableViewCell) -> ()
 class HomeListTableViewCell: UITableViewCell {
 
     static let identifier = "HomeListTableViewCellID"
@@ -15,22 +16,23 @@ class HomeListTableViewCell: UITableViewCell {
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet weak var copyBtn: UIButton!
 
-//    var model = HomeCodeListModel(){
-//        didSet{
-//            titleLabel.text = model.accountStr
-//            codeLabel.text = model.keyStr
-//        }
-//    }
-//
+    var HomeListCopyCodeWithCellBlock :HomeListCopyCodeWithCellBlock?
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
         self.contentView.backgroundColor = .colorWithHexString("F7F7F7")
         self.backgroundColor = .clear
         self.contentView.extSetCornerRadius(10)
-
         self.codeLabel.font = UIFont.init(name: "Roboto-BoldItalic", size: 40)
     }
+
+    @IBAction func copyCodeBtn(_ sender: Any) {
+        if self.HomeListCopyCodeWithCellBlock != nil {
+            self.HomeListCopyCodeWithCellBlock!(self)
+        }
+    }
+
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

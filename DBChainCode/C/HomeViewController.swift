@@ -61,7 +61,7 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
         view.register(UINib.init(nibName: "HomeListTableViewCell", bundle: nil), forCellReuseIdentifier: HomeListTableViewCell.identifier)
         return view
     }()
-
+    var hudLabel = UILabel.init()
     var rightItem = UIButton.init()
     var codeListArr :[[String:Any]] = [] {
         didSet {
@@ -136,6 +136,16 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
         addBtn!.extSetCornerRadius(30)
         addBtn!.addTarget(self, action: #selector(addCodeString), for: .touchUpInside)
         view.addSubview(addBtn!)
+
+        /// 弹窗
+        hudLabel = UILabel.init(frame: CGRect(x: 55, y: self.view.bounds.size.height - kTabBarHeight - 200, width: SCREEN_WIDTH - 110, height: 54))
+        hudLabel.backgroundColor = .black
+        hudLabel.text = "复制成功"
+        hudLabel.textColor = .white
+        hudLabel.textAlignment = .center
+        hudLabel.extSetCornerRadius(8)
+        hudLabel.isHidden = true
+        self.view.addSubview(hudLabel)
 
         if isTimerExistence == true {
             MCGCDTimer.shared.cancleTimer(WithTimerName: uploadCodeTimer)
@@ -298,6 +308,18 @@ extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewD
         cell?.selectionStyle = .none
         cell?.titleLabel.text = self.codeListArr[indexPath.row]["name"] as? String
         cell?.codeLabel.text = self.codeListArr[indexPath.row]["code"] as? String
+        cell?.HomeListCopyCodeWithCellBlock = { [weak self] (cell:HomeListTableViewCell) in
+            guard let mySelf = self else {return}
+            let index = tableView.indexPath(for: cell)
+            let copyStr = mySelf.codeListArr[index!.row]["code"] as? String
+            UIPasteboard.general.string = copyStr
+            UIView.animate(withDuration: 0.5) {
+                mySelf.hudLabel.isHidden = false
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                mySelf.hudLabel.isHidden = true
+            }
+        }
         return cell!
     }
 

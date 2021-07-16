@@ -36,6 +36,9 @@
                             <constraint firstAttribute="height" constant="24" id="67k-59-2ic"/>
                         </constraints>
                         <state key="normal" image="home_code_copy"/>
+                        <connections>
+                            <action selector="copyCodeBtn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wAa-Jo-Jlx"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -53,7 +56,7 @@
                 <outlet property="copyBtn" destination="U4K-X7-jaT" id="Fyw-NE-6xe"/>
                 <outlet property="titleLabel" destination="5Yg-4w-o4S" id="Diq-fO-cTo"/>
             </connections>
-            <point key="canvasLocation" x="113" y="98"/>
+            <point key="canvasLocation" x="-114" y="21"/>
         </tableViewCell>
     </objects>
     <resources>
