@@ -46,6 +46,7 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
         let backView = UIView.init(frame: CGRect(x: 16, y: 10, width: SCREEN_WIDTH - 32, height: 60))
         backView.backgroundColor = .colorWithHexString("F7F7F7")
         backView.extSetCornerRadius(8)
+        
         return view
     }()
 
@@ -63,8 +64,15 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
 
     var rightItem = UIButton.init()
     var codeListArr :[[String:Any]] = [] {
-        didSet{
-            self.tableView.reloadData()
+        didSet {
+            if codeListArr.count == 0 {
+                self.gressview.isHidden = true
+                self.timeLabel.isHidden = true
+            } else {
+                self.gressview.isHidden = false
+                self.timeLabel.isHidden = false
+                self.tableView.reloadData()
+            }
         }
     }
 
@@ -76,8 +84,7 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
             print("++++++++++++++++++++++++++++++")
             let dpathArr = NSArray(contentsOfFile: codePath)
             self.codeListArr = dpathArr as! [[String:Any]]
-
-            print("plist 数组: \(dpathArr!)")
+            print("HomeViewController 数组: \(dpathArr!)")
         } else {
             /// 没有数据
             print("没有数据!!!!")
@@ -144,7 +151,6 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
 
                     if pathArr?.count ?? 0 > 0  {
                         let tempArr = pathArr as! [[String:Any]]
-
                         for (idx,tempDic) in tempArr.enumerated() {
                             print(tempDic["name"] as! String)
                             print(tempDic["keyStr"] as! String)
@@ -161,7 +167,6 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                             }
 
                             if idx == tempArr.count - 1 {
-                                print("重新生成的Code数据: \(dicArr)")
                                 NSArray(array: dicArr).write(toFile: codePath, atomically: true)
                                 mySelf.codeListArr = dicArr
                             }
@@ -264,9 +269,7 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
     func ybPopupMenu(_ ybPopupMenu: YBPopupMenu!, didSelectedAt index: Int) {
         if index == 0 {
             let vc = ModifyListViewController()
-            let nav = BaseNavigationController.init(rootViewController: vc)
-            nav.modalPresentationStyle = .overFullScreen
-            self.present(nav, animated: true, completion: nil)
+            self.navigationController?.pushViewController(vc, animated: true)
         } else {
             let vc = ExportCodeViewController()
             self.navigationController?.pushViewController(vc, animated: true)

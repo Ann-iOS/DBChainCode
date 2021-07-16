@@ -7,9 +7,10 @@
 
 import UIKit
 
-class HomeCodeListModel: NSObject {
+class ExportCodeModel: NSObject {
 
-    var id :String?
+    var index :String?
     var accountStr :String?
     var keyStr :String?
+    var isSelect:Bool?
 }

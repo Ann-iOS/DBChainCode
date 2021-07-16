@@ -17,7 +17,7 @@ class ExportSelectCodeViewController: UIViewController {
         view.dataSource = self
         view.separatorStyle = .none
         view.showsVerticalScrollIndicator = false
-        view.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: kTabBarHeight + kNavBarHeight, right: 0)
+        view.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: kTabBarHeight + kNavBarHeight + 60, right: 0)
         view.register(ExportSelectCodeTableViewCell.classForCoder(), forCellReuseIdentifier: ExportSelectCodeTableViewCell.identifierCellID)
         return view
     }()
@@ -33,6 +33,32 @@ class ExportSelectCodeViewController: UIViewController {
         btn.extSetCornerRadius(8)
         return btn
     }()
+
+    var modelArr :[ExportCodeModel] = [] {
+        didSet{
+            
+        }
+    }
+
+    var codeListArr :[[String:Any]] = [] {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if FileTools.sharedInstance.isFileExisted(path: codePath) {
+            /// 已经存在
+            print("++++++++++++++++++++++++++++++")
+            let dpathArr = NSArray(contentsOfFile: codePath)
+            self.codeListArr = dpathArr as! [[String:Any]]
+            print("ExportSelectCodeViewController 数组: \(dpathArr!)")
+        } else {
+            /// 没有数据
+            print("没有数据!!!!")
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +83,7 @@ class ExportSelectCodeViewController: UIViewController {
 
 extension ExportSelectCodeViewController : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return self.codeListArr.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -67,7 +93,7 @@ extension ExportSelectCodeViewController : UITableViewDelegate,UITableViewDataSo
             cell = ExportSelectCodeTableViewCell.init(style: .default, reuseIdentifier: ExportSelectCodeTableViewCell.identifierCellID)
         }
         cell!.selectionStyle = .none
-
+        cell?.txtLabel.text = self.codeListArr[indexPath.row]["name"] as? String
         return cell!
     }
 
@@ -85,9 +111,10 @@ class ExportSelectCodeTableViewCell: UITableViewCell {
         btn.setImage(UIImage(named: "export_code_sel"), for: .selected)
         return btn
     }()
+
     lazy var txtLabel : UILabel = {
         let label = UILabel()
-        label.text = "我这一次终究还是来的太迟"
+//        label.text = "我这一次终究还是来的太迟"
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 18)
         return label

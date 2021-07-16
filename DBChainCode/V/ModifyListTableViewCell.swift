@@ -7,8 +7,14 @@
 
 import UIKit
 
+typealias ModifyEditCodeNameBlock = (_ cell:ModifyListTableViewCell) -> ()
+typealias ModifyMoveListIndexBlock = (_ cell:ModifyListTableViewCell) -> ()
+
 class ModifyListTableViewCell: UITableViewCell {
     @IBOutlet weak var txtLabel: UILabel!
+
+    var ModifyEditCodeNameBlock :ModifyEditCodeNameBlock?
+    var ModifyMoveListIndexBlock :ModifyMoveListIndexBlock?
 
     static let ModifyCellID = "ModifyListTableViewCellID"
 
@@ -26,12 +32,16 @@ class ModifyListTableViewCell: UITableViewCell {
 
 
     @IBAction func editCodeBtn(_ sender: UIButton) {
-
-
+        if self.ModifyEditCodeNameBlock != nil {
+            self.ModifyEditCodeNameBlock!(self)
+        }
     }
 
     @IBAction func moveCodeBtn(_ sender: Any) {
 
+        if self.ModifyMoveListIndexBlock != nil {
+            self.ModifyMoveListIndexBlock!(self)
+        }
     }
 
 

@@ -39,13 +39,9 @@ class SettingCodeViewController: UIViewController {
                 if FileTools.sharedInstance.isFileExisted(path: codePath) == true {
                     /// 已经存在  更新数据
                     let pathArr = NSArray(contentsOfFile: codePath)
-
-                    if pathArr?.count ?? 0 > 0  {
-                        dic["index"] = "\(dicArr.count + 1)"
-                        dicArr = pathArr!.adding(dic) as! [[String:Any]]
-                        NSArray(array: dicArr).write(toFile: codePath, atomically: true)
-                    }
-
+                    dic["index"] = "\(dicArr.count + 1)"
+                    dicArr = pathArr!.adding(dic) as! [[String:Any]]
+                    NSArray(array: dicArr).write(toFile: codePath, atomically: true)
                 } else {
                     /// 文件不存在. 直接添加
                     dic["index"] = "\(dicArr.count + 1)"
