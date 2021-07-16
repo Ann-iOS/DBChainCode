@@ -74,6 +74,8 @@
 		81B004BC269D6B7000F46EC2 /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81B004BB269D6B7000F46EC2 /* Roboto-BoldItalic.ttf */; };
 		81B004CA269D7C1400F46EC2 /* CircleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B004C9269D7C1400F46EC2 /* CircleProgressView.swift */; };
 		81B004D9269D820B00F46EC2 /* RPCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B004D8269D820B00F46EC2 /* RPCircularProgress.swift */; };
+		81CEEEDC26A1933E00500E6C /* ExportQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CEEEDB26A1933E00500E6C /* ExportQRCodeViewController.swift */; };
+		81CEEEDF26A19CBE00500E6C /* DeleteExportCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CEEEDE26A19CBE00500E6C /* DeleteExportCodeViewController.swift */; };
 		D0B8B3C7826B375C7BFFBA94 /* Pods_DBChainCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A45A9C5BCD313A1A3CB497F /* Pods_DBChainCode.framework */; };
 /* End PBXBuildFile section */
 
@@ -154,6 +156,8 @@
 		81B004C3269D778700F46EC2 /* DBChainCode-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DBChainCode-Bridging-Header.h"; sourceTree = "<group>"; };
 		81B004C9269D7C1400F46EC2 /* CircleProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgressView.swift; sourceTree = "<group>"; };
 		81B004D8269D820B00F46EC2 /* RPCircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPCircularProgress.swift; sourceTree = "<group>"; };
+		81CEEEDB26A1933E00500E6C /* ExportQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportQRCodeViewController.swift; sourceTree = "<group>"; };
+		81CEEEDE26A19CBE00500E6C /* DeleteExportCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteExportCodeViewController.swift; sourceTree = "<group>"; };
 		8868282D50DD6BA365B3BDE4 /* Pods-DBChainCode.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBChainCode.debug.xcconfig"; path = "Target Support Files/Pods-DBChainCode/Pods-DBChainCode.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -310,6 +314,8 @@
 				81660E1226A00B2000A94D75 /* ModifyListViewController.swift */,
 				8114173426A16FF800AFAF93 /* ModifyCodeNameViewController.swift */,
 				8114173726A1800A00AFAF93 /* DeleteCodeHUDViewController.swift */,
+				81CEEEDB26A1933E00500E6C /* ExportQRCodeViewController.swift */,
+				81CEEEDE26A19CBE00500E6C /* DeleteExportCodeViewController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -493,6 +499,8 @@
 				8114173526A16FF800AFAF93 /* ModifyCodeNameViewController.swift in Sources */,
 				81659A60269C22FC005C9336 /* AppDelegate.swift in Sources */,
 				81659ABF269C330F005C9336 /* KeyedDecodingContainer+Extension.swift in Sources */,
+				81CEEEDF26A19CBE00500E6C /* DeleteExportCodeViewController.swift in Sources */,
+				81CEEEDC26A1933E00500E6C /* ExportQRCodeViewController.swift in Sources */,
 				81659ABC269C330F005C9336 /* MacroColor.swift in Sources */,
 				81659AC6269C330F005C9336 /* UILabelExtension.swift in Sources */,
 				815A6695269EDD9E00E54774 /* SettingCodeView.swift in Sources */,

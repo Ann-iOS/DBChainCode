@@ -12,5 +12,6 @@ class ExportCodeModel: NSObject {
     var index :String?
     var accountStr :String?
     var keyStr :String?
-    var isSelect:Bool?
+    var code :String?
+    var isSelect:Bool = false
 }

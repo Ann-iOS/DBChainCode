@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class ExportSelectCodeViewController: UIViewController {
 
@@ -31,18 +32,28 @@ class ExportSelectCodeViewController: UIViewController {
         btn.setImage(UIImage(named: "export_code_select"), for: .highlighted)
         btn.backgroundColor = .colorWithHexString(ThemeMainColor)
         btn.extSetCornerRadius(8)
+        btn.addTarget(self, action: #selector(exportButtonClick), for: .touchUpInside)
         return btn
     }()
 
     var modelArr :[ExportCodeModel] = [] {
-        didSet{
-            
+        didSet {
+            self.tableView.reloadData()
         }
     }
 
     var codeListArr :[[String:Any]] = [] {
         didSet {
-            self.tableView.reloadData()
+            modelArr.removeAll()
+            for dic in codeListArr {
+                let model = ExportCodeModel()
+                model.accountStr = dic["name"] as? String
+                model.keyStr = dic["keyStr"] as? String
+                model.index = dic["index"] as? String
+                model.code = dic["code"] as? String
+                model.isSelect = false
+                modelArr.append(model)
+            }
         }
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -60,13 +71,21 @@ class ExportSelectCodeViewController: UIViewController {
         }
     }
 
+    var selectModelArr :[ExportCodeModel] = []{
+        didSet {
+            self.title = "已选择\(selectModelArr.count)个"
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "已选择0个"
         self.view.backgroundColor = .white
         rightItemButton.setTitle("全选", for: .normal)
+        rightItemButton.setTitle("取消", for:.selected )
         rightItemButton.setTitleColor(.black, for: .normal)
         rightItemButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        rightItemButton.addTarget(self, action: #selector(selectAllCodeClick), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightItemButton)
 
         view.addSubview(tableView)
@@ -74,16 +93,56 @@ class ExportSelectCodeViewController: UIViewController {
         exportBtn.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().offset(-55)
-            make.width.equalTo(160)
+            make.width.equalTo(100)
             make.height.equalTo(54)
         }
     }
 
+    @objc func selectAllCodeClick() {
+
+        if self.modelArr.count > 0 {
+            selectModelArr.removeAll()
+            let tempModelArr = self.modelArr
+            if rightItemButton.isSelected == false {
+                rightItemButton.isSelected = true
+                self.modelArr.removeAll()
+                for model in tempModelArr {
+                    model.isSelect = true
+                    modelArr.append(model)
+                    selectModelArr.append(model)
+                }
+            } else {
+                rightItemButton.isSelected = false
+                self.modelArr.removeAll()
+                for model in tempModelArr {
+                    model.isSelect = false
+                    modelArr.append(model)
+                }
+            }
+        }
+    }
+
+    @objc func exportButtonClick(){
+        print("选择的验证码数量: \(self.selectModelArr.count)")
+        if self.selectModelArr.count > 0 {
+            var qrcodeArr :[String] = []
+            self.selectModelArr.forEach { (model) in
+                let dic = ["code":model.code,"key":model.keyStr,"title":model.accountStr]
+                let dicStr = dic.toJsonString()
+                qrcodeArr.append(dicStr!)
+            }
+
+            let vc = ExportQRCodeViewController()
+            let codeStr = qrcodeArr.joined(separator: ",")
+            vc.qrCodeStr = "[\(codeStr)]"
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }
 
 extension ExportSelectCodeViewController : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.codeListArr.count
+        return self.modelArr.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,18 +152,40 @@ extension ExportSelectCodeViewController : UITableViewDelegate,UITableViewDataSo
             cell = ExportSelectCodeTableViewCell.init(style: .default, reuseIdentifier: ExportSelectCodeTableViewCell.identifierCellID)
         }
         cell!.selectionStyle = .none
-        cell?.txtLabel.text = self.codeListArr[indexPath.row]["name"] as? String
+        cell?.model = self.modelArr[indexPath.row]
         return cell!
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = self.modelArr[indexPath.row]
+        model.isSelect.toggle()
+        if model.isSelect == true {
+            if !self.selectModelArr.contains(model) {
+                self.selectModelArr.append(model)
+            }
+        } else {
+            self.selectModelArr = self.selectModelArr.filter({$0 != model})
+        }
+        self.modelArr[indexPath.row] = model
+    }
+
 }
 
 class ExportSelectCodeTableViewCell: UITableViewCell {
 
     static let identifierCellID = "SELECTCODECELLID"
+
+    var model = ExportCodeModel() {
+        didSet{
+            txtLabel.text = model.accountStr
+            selectBtn.isSelected = model.isSelect
+        }
+    }
+
     lazy var selectBtn : UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "export_code_nor"), for: .normal)
@@ -114,11 +195,11 @@ class ExportSelectCodeTableViewCell: UITableViewCell {
 
     lazy var txtLabel : UILabel = {
         let label = UILabel()
-//        label.text = "我这一次终究还是来的太迟"
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 18)
         return label
     }()
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentView.addSubViews([selectBtn,txtLabel])

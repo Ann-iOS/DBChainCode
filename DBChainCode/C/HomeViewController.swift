@@ -88,6 +88,8 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
         } else {
             /// 没有数据
             print("没有数据!!!!")
+            self.gressview.isHidden = true
+            self.timeLabel.isHidden = true
         }
     }
 
