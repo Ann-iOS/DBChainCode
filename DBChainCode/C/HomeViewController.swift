@@ -124,6 +124,12 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "库链验证器"
+        self.view.backgroundColor = .white
+        configUI()
+        refreshCodeList()
+    }
+
+    func configUI(){
         /// 保存全部数据  搜索清空后恢复
         self.tempCodeListArr = self.codeListArr
 
@@ -166,6 +172,9 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
         hudLabel.extSetCornerRadius(8)
         hudLabel.isHidden = true
         self.view.addSubview(hudLabel)
+    }
+
+    func refreshCodeList() {
 
         if isTimerExistence == true {
             MCGCDTimer.shared.cancleTimer(WithTimerName: uploadCodeTimer)
@@ -225,6 +234,8 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
             mySelf.timeLabel.text = "\(Int(mySelf.waitTime) + 1)s"
         }
     }
+
+
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -438,6 +449,16 @@ extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewD
         return view
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let copyStr = self.codeListArr[indexPath.row]["code"] as? String
+        UIPasteboard.general.string = copyStr
+        UIView.animate(withDuration: 0.5) {
+            self.hudLabel.isHidden = false
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.hudLabel.isHidden = true
+        }
+    }
 
     // 侧栏菜单将要显示时触发
     func sideMenuWillAppear(menu: SideMenuNavigationController, animated: Bool) {

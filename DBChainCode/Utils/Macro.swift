@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+/// 生物认证是否开启
+let FaceIDStateKey = "FaceIDStateKey"
 
 let SCREEN_WIDTH = UIScreen.main.bounds.width
 let SCREEN_HEIGHT = UIScreen.main.bounds.height

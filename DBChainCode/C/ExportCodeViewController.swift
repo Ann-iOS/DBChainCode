@@ -68,8 +68,45 @@ class ExportCodeViewController: UIViewController {
     }
     
     @objc func continueButtonClick(){
-        let vc = ExportSelectCodeViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        if UserDefaults.standard.object(forKey: FaceIDStateKey) as! Int == 0 {
+            /// 不需要认证
+            let vc = ExportSelectCodeViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            /// 需要认证
+            TJBioAuthenticator.shared.authenticateUserWithBiometrics(success: {[weak self] in
+                guard let mySelf = self else {return}
+                mySelf.showSuccessAlert()
+            }) { (error) in
+                switch error{
+                case .biometryLockedout:
+                    self.executePasscodeAuthentication()
+                    break
+                default:
+                    self.presentAlert(withTitle: "错误", message: error.getMessage())
+                    break
+                }
+            }
+        }
     }
+
+
+    func executePasscodeAuthentication() {
+        TJBioAuthenticator.shared.authenticateUserWithPasscode(success: {
+            self.showSuccessAlert()
+        }) { (error) in
+            self.presentAlert(withTitle: "错误", message: error.getMessage())
+        }
+    }
+
+    func showSuccessAlert() {
+        DispatchQueue.main.async {[weak self] in
+            guard let mySelf = self else {return}
+            UserDefaults.standard.setValue(1, forKey: FaceIDStateKey)
+            let vc = ExportSelectCodeViewController()
+            mySelf.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+
 
 }

@@ -9,5 +9,7 @@ target 'DBChainCode' do
   pod 'YBPopupMenu'
   pod 'SYProgressView'
   pod 'SnapKit'
-  pod 'swiftScan', :git => 'https://github.com/MxABC/swiftScan.git' 
+  pod 'swiftScan', :git => 'https://github.com/MxABC/swiftScan.git'
+#  pod 'BiometricAuthentication'
+#  pod  'TJBioAuthentication'
 end

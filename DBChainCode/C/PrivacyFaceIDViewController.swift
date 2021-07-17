@@ -6,8 +6,15 @@
 //
 
 import UIKit
+import TJBioAuthentication
 
 class PrivacyFaceIDViewController: UIViewController {
+
+    var tipStr = "启动隐私屏幕保护后，需要使用Face ID才能访问此应用"
+
+    let tipleftLabel = UILabel.init()
+    let tipLabel = UILabel.init()
+    let switchBtn = UISwitch(frame: CGRect(x: SCREEN_WIDTH - 24 - 60, y: 20, width: 80, height: 40))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,17 +25,21 @@ class PrivacyFaceIDViewController: UIViewController {
     }
 
     func setup(){
-        let tipleftLabel = UILabel.init()
+
+        if !Device_Is_iPhone_All {
+            tipStr = "启动隐私屏幕保护后，需要使用Touch ID才能访问此应用"
+        }
         tipleftLabel.textColor = .black
         tipleftLabel.text = "隐私保护屏幕"
         tipleftLabel.font = UIFont.systemFont(ofSize: 18)
 
-        let switchBtn = UISwitch()
-        switchBtn.addTarget(self, action: #selector(clickSwitchButton), for: .valueChanged)
-        switchBtn.isOn = false
+        switchBtn.addTarget(self, action: #selector(switchDidChange(_:)), for: .valueChanged)
+        if UserDefaults.standard.object(forKey: FaceIDStateKey) as! Int == 1 {
+            switchBtn.isOn = true
+        } else {
+            switchBtn.isOn = false
+        }
 
-        let tipStr = "启动隐私屏幕保护后，需要使用Face ID才能访问此应用"
-        let tipLabel = UILabel.init()
         tipLabel.numberOfLines = 0
         tipLabel.font = UIFont.systemFont(ofSize: 16)
         tipLabel.textColor = .black
@@ -41,17 +52,14 @@ class PrivacyFaceIDViewController: UIViewController {
         tipLabel.attributedText = attributedString
         tipLabel.sizeToFit()
 
-        view.addSubViews([tipleftLabel,switchBtn,tipLabel])
+        view.addSubview(switchBtn)
+        view.addSubViews([tipleftLabel,tipLabel])
 
         tipleftLabel.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(26)
             make.top.equalToSuperview().offset(20)
         }
 
-        switchBtn.snp.makeConstraints { (make) in
-            make.centerY.equalTo(tipleftLabel)
-            make.right.equalToSuperview().offset(-24)
-        }
         tipLabel.snp.makeConstraints { (make) in
             make.top.equalTo(tipleftLabel.snp.bottom).offset(30)
             make.left.equalToSuperview().offset(20)
@@ -60,7 +68,48 @@ class PrivacyFaceIDViewController: UIViewController {
 
     }
 
-    @objc func clickSwitchButton(){
-        
+    @objc func switchDidChange(_ sender:UISwitch){
+        sender.isOn = !sender.isOn
+        /// 打开认证
+        if sender.isOn == false {
+            TJBioAuthenticator.shared.authenticateUserWithBiometrics(success: {[weak self] in
+                guard let mySelf = self else {return}
+                mySelf.showSuccessAlert()
+            }) { (error) in
+                switch error{
+                case .biometryLockedout:
+                    self.executePasscodeAuthentication()
+                    break
+                default:
+                    self.presentAlert(withTitle: "错误", message: error.getMessage())
+                    break
+                }
+            }
+        } else {
+            /// 关闭认证
+            closeFaceID()
+        }
+    }
+
+    func executePasscodeAuthentication() {
+        TJBioAuthenticator.shared.authenticateUserWithPasscode(success: {
+            self.showSuccessAlert()
+        }) { (error) in
+            self.presentAlert(withTitle: "错误", message: error.getMessage())
+        }
+    }
+
+    func showSuccessAlert() {
+        DispatchQueue.main.async {
+            UserDefaults.standard.setValue(1, forKey: FaceIDStateKey)
+            self.switchBtn.isOn = true
+        }
+    }
+
+    func closeFaceID(){
+        DispatchQueue.main.async {
+            UserDefaults.standard.setValue(0, forKey: FaceIDStateKey)
+            self.switchBtn.isOn = false
+        }
     }
 }
