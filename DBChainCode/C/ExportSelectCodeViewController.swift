@@ -58,13 +58,13 @@ class ExportSelectCodeViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        self.title = "已选择0个"
+        self.selectModelArr.removeAll()
+        rightItemButton.isSelected = false
         if FileTools.sharedInstance.isFileExisted(path: codePath) {
             /// 已经存在
-            print("++++++++++++++++++++++++++++++")
             let dpathArr = NSArray(contentsOfFile: codePath)
             self.codeListArr = dpathArr as! [[String:Any]]
-            print("ExportSelectCodeViewController 数组: \(dpathArr!)")
         } else {
             /// 没有数据
             print("没有数据!!!!")
@@ -79,7 +79,6 @@ class ExportSelectCodeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "已选择0个"
         self.view.backgroundColor = .white
         rightItemButton.setTitle("全选", for: .normal)
         rightItemButton.setTitle("取消", for:.selected )
@@ -123,7 +122,6 @@ class ExportSelectCodeViewController: UIViewController {
     }
 
     @objc func exportButtonClick(){
-        print("选择的验证码数量: \(self.selectModelArr.count)")
         if self.selectModelArr.count > 0 {
             var qrcodeArr :[String] = []
             self.selectModelArr.forEach { (model) in

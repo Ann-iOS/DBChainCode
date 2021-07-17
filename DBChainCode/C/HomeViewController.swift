@@ -11,6 +11,7 @@ import YBPopupMenu
 import SYProgressView
 import swiftScan
 import Photos
+import SVProgressHUD
 
 let uploadCodeTimer = "UPLOADCODETIMER"
 
@@ -185,8 +186,6 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                         var nameArr :[String] = []
                         let tempArr = pathArr as! [[String:Any]]
                         for (idx,tempDic) in tempArr.enumerated() {
-                            print(tempDic["name"] as! String)
-                            print(tempDic["keyStr"] as! String)
                             /// 刷新Code
                             let data = DBase32().addOTPWithTimerLag(keyStr: tempDic["keyStr"]! as! String)
                             let generator = TOTPGenerator.init(secret: data, algorithm: kOTPGeneratorSHA1Algorithm, digits: 6,period: 30)
@@ -309,12 +308,41 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
         return authStatus != .restricted && authStatus != .denied
     }
 
+    /// 扫描内容解析
     func scanFinished(scanResult: LBXScanResult, error: String?) {
-        print(scanResult.strScanned!)
         if scanResult.strScanned!.count > 0 {
+            print("扫描原始数据: \(scanResult.strScanned!)")
+            let str = scanResult.strScanned!
+            if str.contains("[{"),str.contains("}]") {
+                let jsonData :Data = str.data(using: .utf8)!
+                do {
+                    let arr :[[String:Any]] = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as! [[String : Any]]
+                    var dataArr :[[String:Any]] = []
+                    // 数据处理
+                    arr.forEach { (dic) in
+                        var tempDic : [String:Any] = [:]
+                        tempDic["name"] = dic["title"]
+                        tempDic["keyStr"] = dic["key"]
+                        tempDic["code"] = dic["code"]
+                        tempDic["index"] = "0"
+                        dataArr.append(tempDic)
+                    }
+                    if FileTools.sharedInstance.isFileExisted(path: codePath) {
+                        /// 已经存在
+                        let dpathArr :[[String:Any]] = NSArray(contentsOfFile: codePath) as! [[String : Any]]
+                        dpathArr.forEach { (dic) in
+                            dataArr.append(dic)
+                        }
+                    }
+                    NSArray(array: dataArr).write(toFile: codePath, atomically: true)
+                    self.codeListArr = dataArr
+                } catch {
+                    SVProgressHUD.showError(withStatus: "格式错误")
+                }
+            }
 
         } else {
-
+            SVProgressHUD.showError(withStatus: "格式错误")
         }
     }
 
