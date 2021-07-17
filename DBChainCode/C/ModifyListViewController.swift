@@ -128,6 +128,8 @@ extension ModifyListViewController {
             }
             /// 将生成的cellimage清除
             initCellImageView()
+            /// 更新本地数据
+            NSArray(array: self.codeListArr).write(toFile: codePath, atomically: true)
         }
     }
 
@@ -245,6 +247,8 @@ extension ModifyListViewController: UITableViewDragDelegate,UITableViewDropDeleg
         } else {
             self.codeListArr.insert(dic, at: destinationIndexPath.row)
         }
+        NSArray(array: self.codeListArr).write(toFile: codePath, atomically: true)
+        print("拖拽后数组: \(self.codeListArr)")
     }
 }
 

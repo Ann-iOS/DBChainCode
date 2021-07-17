@@ -119,7 +119,9 @@ class DeleteCodeHUDViewController: UIViewController {
             fixBtn.setTitleColor(.red, for: .normal)
             tipLabel.text = "重要提示"
             tipImageV.image = UIImage(named: "delete_all_code")
-            centerTipLabel.text = "您确定要重置DBChain Usage ID吗？重置将清空全部账号。"
+            let tipStr = NSMutableAttributedString(string: "您确定要重置DBChain Usage ID吗？重置将清空全部账号。")
+            tipStr.addAttributes([.foregroundColor:UIColor.red], range: NSRange(location: 27, length: 2))
+            centerTipLabel.attributedText = tipStr
         } else {
             tipImageV.image = UIImage(named: "delete_alone_code")
             tipLabel.text = "提示"
@@ -136,7 +138,12 @@ class DeleteCodeHUDViewController: UIViewController {
     @objc func fixButtonClick(){
         if self.type == .All {
             // 删除全部
-
+            NSArray(array: NSArray.init()).write(toFile: codePath, atomically: true)
+            self.dismiss(animated: false) {
+                if self.deleteSuccessBlock != nil {
+                    self.deleteSuccessBlock!()
+                }
+            }
         } else {
             /// 删除单个
             if FileTools.sharedInstance.isFileExisted(path: codePath) {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class FeedBackViewController: UIViewController, UITextViewDelegate {
 
@@ -104,7 +105,13 @@ class FeedBackViewController: UIViewController, UITextViewDelegate {
 
 
     @objc func sendFeedBackText(){
-
+        if !self.feedTextView.text!.isBlank {
+            SVProgressHUD.show()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                SVProgressHUD.showSuccess(withStatus: "发送成功")
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
 
     func textViewDidChange(_ textView: UITextView) {
@@ -113,5 +120,9 @@ class FeedBackViewController: UIViewController, UITextViewDelegate {
         } else {
             seatLabel.isHidden = true
         }
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }

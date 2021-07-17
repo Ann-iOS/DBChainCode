@@ -21,6 +21,7 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
     var waitTime :CGFloat = 30.0
 
     let isTimerExistence = MCGCDTimer.shared.isExistTimer(WithTimerName: uploadCodeTimer)
+    let sectionTitleLabel = UILabel.init(frame: CGRect(x: 24, y: 20, width: 200, height: 24))
 
     public var addBtn :UIButton?
 
@@ -125,11 +126,16 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
         super.viewDidLoad()
         self.title = "库链验证器"
         self.view.backgroundColor = .white
+
         configUI()
         refreshCodeList()
     }
 
     func configUI(){
+
+        sectionTitleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        sectionTitleLabel.textColor = .black
+        sectionTitleLabel.text = "     账号列表"
         /// 保存全部数据  搜索清空后恢复
         self.tempCodeListArr = self.codeListArr
 
@@ -375,8 +381,10 @@ extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewD
         var filterArr :[[String:Any]] = []
         if textField.text!.isBlank {
             /// 展示全部
+            self.sectionTitleLabel.text = "     账号列表"
             self.codeListArr = self.tempCodeListArr
         } else {
+            self.sectionTitleLabel.text = "     搜索列表"
             for dic in self.tempCodeListArr {
                 let name = dic["name"] as! String
                 if name.contains(self.searchTF.text!) {
@@ -432,11 +440,7 @@ extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewD
 
         let view = UIView.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 60))
 
-        let titleLabel = UILabel.init(frame: CGRect(x: 24, y: 20, width: 200, height: 24))
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        titleLabel.textColor = .black
-        titleLabel.text = "     账号列表"
-        view.addSubview(titleLabel)
+        view.addSubview(sectionTitleLabel)
 
         gressview.frame = CGRect(x: SCREEN_WIDTH - 45, y: 22, width: 22, height: 22)
         gressview.extSetCornerRadius(11)

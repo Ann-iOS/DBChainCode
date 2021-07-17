@@ -15,6 +15,7 @@ class UsageIDViewController: UIViewController {
         btn.setTitle("DBChain Usage ID重置", for: .normal)
         btn.setTitleColor(.colorWithHexString(ThemeMainColor), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        btn.addTarget(self, action: #selector(resetAllCodeClick), for: .touchUpInside)
         return btn
     }()
 
@@ -25,7 +26,6 @@ class UsageIDViewController: UIViewController {
         self.view.backgroundColor = .white
         self.setup()
     }
-    
 
     func setup(){
         let titleLabel = UILabel()
@@ -53,5 +53,15 @@ class UsageIDViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-60)
             make.centerX.equalToSuperview()
         }
+    }
+
+    @objc func resetAllCodeClick(){
+        let alertVC = DeleteCodeHUDViewController()
+        alertVC.type = .All
+        alertVC.modalPresentationStyle = .overFullScreen
+        alertVC.deleteSuccessBlock = {
+            self.navigationController?.popViewController(animated: true)
+        }
+        self.present(alertVC, animated: false, completion: nil)
     }
 }
