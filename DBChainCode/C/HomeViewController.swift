@@ -86,8 +86,8 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
             } else {
                 self.gressview.isHidden = false
                 self.timeLabel.isHidden = false
-                self.tableView.reloadData()
             }
+            self.tableView.reloadData()
         }
     }
 
@@ -332,12 +332,12 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
 extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate {
 
     func textFieldDidChangeSelection(_ textField: UITextField) {
+        /// 过滤展示
+        var filterArr :[[String:Any]] = []
         if textField.text!.isBlank {
             /// 展示全部
             self.codeListArr = self.tempCodeListArr
         } else {
-            /// 过滤展示
-            var filterArr :[[String:Any]] = []
             for dic in self.tempCodeListArr {
                 let name = dic["name"] as! String
                 if name.contains(self.searchTF.text!) {
