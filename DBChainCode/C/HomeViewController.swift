@@ -41,12 +41,25 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
         return view
     }()
 
+    lazy var searchTF : UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "搜索账号"
+        tf.textColor = .black
+        tf.font = UIFont.systemFont(ofSize: 18)
+        tf.borderStyle = .none
+        tf.backgroundColor = .colorWithHexString("#F7F7F7")
+        tf.extSetCornerRadius(8)
+        tf.delegate = self
+        tf.leftViewMode = .always
+        tf.leftView = UIView.init(frame: CGRect(x: 0, y: 0, width: 16, height: tf.frame.height))
+        return tf
+    }()
+
     lazy var headerView : UIView = {
         let view = UIView.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 80))
         let backView = UIView.init(frame: CGRect(x: 16, y: 10, width: SCREEN_WIDTH - 32, height: 60))
         backView.backgroundColor = .colorWithHexString("F7F7F7")
         backView.extSetCornerRadius(8)
-        
         return view
     }()
 
@@ -63,6 +76,8 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
     }()
     var hudLabel = UILabel.init()
     var rightItem = UIButton.init()
+    /// 用于 搜索时恢复全部数据
+    var tempCodeListArr :[[String:Any]] = []
     var codeListArr :[[String:Any]] = [] {
         didSet {
             if codeListArr.count == 0 {
@@ -108,7 +123,9 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "库链验证器"
-        
+        /// 保存全部数据  搜索清空后恢复
+        self.tempCodeListArr = self.codeListArr
+
         let leftItem = UIBarButtonItem.init(image: UIImage(named: "home_left_item"), style: .plain, target: self, action: #selector(showLeftMenu(_:)))
         self.navigationItem.leftBarButtonItem = leftItem
 
@@ -127,6 +144,8 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
         SideMenuManager.default.leftMenuNavigationController = leftMenu
 
         tableView.tableHeaderView = headerView
+        searchTF.frame = CGRect(x: 16, y: 10, width: SCREEN_WIDTH - 32, height: 60)
+        headerView.addSubview(searchTF)
         view.addSubview(tableView)
 
         addBtn = UIButton.init(frame: CGRect(x: SCREEN_WIDTH - 76, y: SCREEN_HEIGHT - kNavBarAndStatusBarHeight - 108, width: 60, height: 60))
@@ -162,6 +181,8 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                     let pathArr = NSArray(contentsOfFile: codePath)
 
                     if pathArr?.count ?? 0 > 0  {
+                        /// 搜索时 另外保存名称
+                        var nameArr :[String] = []
                         let tempArr = pathArr as! [[String:Any]]
                         for (idx,tempDic) in tempArr.enumerated() {
                             print(tempDic["name"] as! String)
@@ -175,12 +196,26 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                                                                    "keyStr":tempDic["keyStr"] as! String,
                                                                    "index":tempDic["index"] as! String,
                                                                    "code":code!]
+                                nameArr.append(tempDic["name"] as! String)
                                 dicArr.append(dic)
                             }
 
                             if idx == tempArr.count - 1 {
                                 NSArray(array: dicArr).write(toFile: codePath, atomically: true)
-                                mySelf.codeListArr = dicArr
+                                /// 保存全部数据
+                                mySelf.tempCodeListArr = dicArr
+                                /// 过滤搜索框数据
+                                if !mySelf.searchTF.text!.isBlank {
+                                    mySelf.codeListArr.removeAll()
+                                    for tmpDic in dicArr {
+                                        let name = tmpDic["name"] as! String
+                                        if name.contains(mySelf.searchTF.text!) {
+                                            mySelf.codeListArr.append(tempDic)
+                                        }
+                                    }
+                                } else {
+                                    mySelf.codeListArr = dicArr
+                                }
                             }
                         }
                     }
@@ -190,6 +225,11 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
             }
             mySelf.timeLabel.text = "\(Int(mySelf.waitTime) + 1)s"
         }
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+        self.tableView.endEditing(true)
     }
 
     // 显示左侧菜单
@@ -289,7 +329,25 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
     }
 }
 
-extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewDelegate, UITableViewDataSource {
+extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate {
+
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField.text!.isBlank {
+            /// 展示全部
+            self.codeListArr = self.tempCodeListArr
+        } else {
+            /// 过滤展示
+            var filterArr :[[String:Any]] = []
+            for dic in self.tempCodeListArr {
+                let name = dic["name"] as! String
+                if name.contains(self.searchTF.text!) {
+                    filterArr.append(dic)
+                }
+            }
+            self.codeListArr = filterArr
+        }
+    }
+
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
