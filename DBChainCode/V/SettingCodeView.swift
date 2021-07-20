@@ -95,11 +95,13 @@ class SettingCodeView: UIView, UITextFieldDelegate {
             SVProgressHUD.showError(withStatus: "请输入账号")
         } else if self.keyTextField.text!.isBlank {
             SVProgressHUD.showError(withStatus: "请输入密钥")
-        } else if self.keyTextField.text!.count == 16 || self.keyTextField.text!.count == 32{
+        } else if self.keyTextField.text!.count != 16 && self.keyTextField.text!.count != 32 {
             SVProgressHUD.showError(withStatus: "密钥格式错误")
         } else {
             if self.addCodeButtonBlock != nil {
-                self.addCodeButtonBlock!(self.accountTextField.text!,self.keyTextField.text!)
+                /// 转为大写
+                let str = self.keyTextField.text!.uppercased()
+                self.addCodeButtonBlock!(self.accountTextField.text!,str)
             }
         }
     }
@@ -131,8 +133,8 @@ class SettingCodeView: UIView, UITextFieldDelegate {
         }
         if textField == keyTextField {
             //设置只能输入str后面字符串中的字符
-//            let str = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            let cs:NSCharacterSet = NSCharacterSet.init(charactersIn: kBase32Charset);
+            let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567abcdefghijklmnopqrstuvwxyz";
+            let cs:NSCharacterSet = NSCharacterSet.init(charactersIn: str);
             let str1 = string.components(separatedBy: cs as CharacterSet);
             let str2 = str1.joined(separator: "");
             let result = str2 == string;
