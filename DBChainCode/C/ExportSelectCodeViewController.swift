@@ -169,6 +169,12 @@ extension ExportSelectCodeViewController : UITableViewDelegate,UITableViewDataSo
             self.selectModelArr = self.selectModelArr.filter({$0 != model})
         }
         self.modelArr[indexPath.row] = model
+
+        if self.selectModelArr.count == self.modelArr.count {
+            self.rightItemButton.isSelected = true
+        } else {
+            self.rightItemButton.isSelected = false
+        }
     }
 
 }
