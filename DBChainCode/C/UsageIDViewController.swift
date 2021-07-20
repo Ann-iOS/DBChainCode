@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class UsageIDViewController: UIViewController {
 
@@ -60,6 +61,7 @@ class UsageIDViewController: UIViewController {
         alertVC.type = .All
         alertVC.modalPresentationStyle = .overFullScreen
         alertVC.deleteSuccessBlock = {
+            SVProgressHUD.showSuccess(withStatus: "操作成功")
             self.navigationController?.popViewController(animated: true)
         }
         self.present(alertVC, animated: false, completion: nil)

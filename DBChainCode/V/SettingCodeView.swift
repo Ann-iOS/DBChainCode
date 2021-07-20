@@ -35,6 +35,7 @@ class SettingCodeView: UIView, UITextFieldDelegate {
         tf.textColor = .black
         tf.backgroundColor = .colorWithHexString("F7F7F7")
         tf.borderStyle = .none
+        tf.keyboardType = .asciiCapable
         tf.font = UIFont().themeHNMediumFont(size: 18)
         tf.extSetCornerRadius(8)
         let leftView = UIView.init(frame: CGRect(x: 0, y: 0, width: 20, height: tf.frame.height))
@@ -113,6 +114,34 @@ class SettingCodeView: UIView, UITextFieldDelegate {
             accountTextField.extSetBorderWidth(2, color: .colorWithHexString(ThemeMainColor))
         } else if textField.tag == 301 {
             keyTextField.extSetBorderWidth(2, color: .colorWithHexString(ThemeMainColor))
+        }
+        return true
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        guard let text = textField.text else {
+            return true
+        }
+        //防止删除键无效
+        if string == "" {
+            return true;
+        }
+        if textField == keyTextField {
+            //设置只能输入str后面字符串中的字符
+            let str = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            let cs:NSCharacterSet = NSCharacterSet.init(charactersIn: str);
+            let str1 = string.components(separatedBy: cs as CharacterSet);
+            let str2 = str1.joined(separator: "");
+            let result = str2 == string;
+//            print(result);
+//            if result == true {
+////            postValueBlock!();
+//            }
+            //设置输入的长度不超过10
+            let textLength = text.count + string.count - range.length
+
+            return textLength<=32 && !result;
         }
         return true
     }

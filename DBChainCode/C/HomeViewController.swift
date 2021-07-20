@@ -371,6 +371,10 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
 
                 let firstNameIndex = str.positionOf(sub: nameStr)
                 let emailStr = str.extStringSub(NSRange(location: firstNameIndex + nameStr.count + 1, length: idx - firstNameIndex - nameStr.count - 1))
+                print("新增名称: \(emailStr)")
+                /// URL 编码转换
+                let urlEmailStr = emailStr.removingPercentEncoding
+                print("新增URL名称 :\(urlEmailStr ?? "")")
 
                 let keyIndex = str.positionOf(sub: "secret")
                 let keyStr = str.extStringSub(NSRange(location: keyIndex + 7, length: issPosition - 1 - keyIndex - 7))
@@ -382,7 +386,7 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                     /// 保存本地
                     var dicArr :[[String:Any]] = []
 
-                    var dic :Dictionary<String,Any> = ["name":nameStr + "(\(emailStr))",
+                    var dic :Dictionary<String,Any> = ["name":nameStr + "(\(urlEmailStr ?? ""))",
                                                        "keyStr":keyStr,
                                                        "code":code!]
 
@@ -395,7 +399,7 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                             keyStrArr.append(pdic["keyStr"] as! String)
                         }
                         /// 过滤重复
-                        if keyStr.contains(keyStr) {
+                        if keyStrArr.contains(keyStr) {
                             SVProgressHUD.showError(withStatus: "当前密钥已存在, 不可重复添加")
                         } else {
                             dic["index"] = "\(dicArr.count + 1)"

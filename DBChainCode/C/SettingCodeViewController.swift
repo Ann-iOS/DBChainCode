@@ -31,7 +31,7 @@ class SettingCodeViewController: UIViewController {
             if code != nil {
                 /// 保存本地
                 var dicArr :[[String:Any]] = []
-
+                
                 var dic :Dictionary<String,Any> = ["name":accountStr,
                                                    "keyStr":keyStr,
                                                    "code":code!]
@@ -45,7 +45,7 @@ class SettingCodeViewController: UIViewController {
                         keyStrArr.append(pdic["keyStr"] as! String)
                     }
                     /// 过滤重复
-                    if keyStr.contains(keyStr) {
+                    if keyStrArr.contains(keyStr) {
                         SVProgressHUD.showError(withStatus: "当前密钥已存在, 不可重复添加")
                     } else {
                         dic["index"] = "\(dicArr.count + 1)"

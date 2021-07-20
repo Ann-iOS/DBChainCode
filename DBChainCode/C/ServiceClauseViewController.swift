@@ -51,7 +51,7 @@ class ServiceClauseViewController: UIViewController {
         scrollView.frame = self.view.frame
         let height = self.height(text: tipStr!)
 
-        scrollView.contentSize = CGSize(width: SCREEN_WIDTH, height: height + kTabBarHeight + 20)
+        scrollView.contentSize = CGSize(width: SCREEN_WIDTH, height: height + kTabBarHeight + 40)
         view.addSubview(scrollView)
 
         txtLabel.lineBreakMode = .byWordWrapping
