@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import TJBioAuthentication
+//import TJBioAuthentication
 
 class PrivacyFaceIDViewController: UIViewController {
 

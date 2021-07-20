@@ -95,11 +95,15 @@ class MenuViewController: UIViewController {
     }
 
     @objc func serviceClick() {
-
+        let vc = ServiceClauseViewController()
+        vc.type = .service
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 
     @objc func privacyPolicyClick() {
-
+        let vc = ServiceClauseViewController()
+        vc.type = .privacy
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 
 }

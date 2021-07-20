@@ -13,11 +13,12 @@
 		8114173226A1542300AFAF93 /* CustomAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107853226A1526E00ED1D0A /* CustomAnimatedTransitioning.swift */; };
 		8114173526A16FF800AFAF93 /* ModifyCodeNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8114173426A16FF800AFAF93 /* ModifyCodeNameViewController.swift */; };
 		8114173826A1800A00AFAF93 /* DeleteCodeHUDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8114173726A1800A00AFAF93 /* DeleteCodeHUDViewController.swift */; };
+		8122F8FE26A66216001717E7 /* TJBioAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813AC23F26A2CFEA00A609F5 /* TJBioAuthenticator.swift */; };
+		8122F90126A66776001717E7 /* ServiceClauseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8122F90026A66776001717E7 /* ServiceClauseViewController.swift */; };
 		813AC20F26A2C14A00A609F5 /* UIAlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813AC20E26A2C14A00A609F5 /* UIAlertControllerExtension.swift */; };
 		813AC21226A2C39B00A609F5 /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813AC21126A2C39B00A609F5 /* NSObjectExtension.swift */; };
 		813AC24026A2CFEA00A609F5 /* TJAuthErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813AC23D26A2CFEA00A609F5 /* TJAuthErrors.swift */; };
 		813AC24126A2CFEA00A609F5 /* TJDefaultMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813AC23E26A2CFEA00A609F5 /* TJDefaultMessages.swift */; };
-		813AC24226A2CFEA00A609F5 /* TJBioAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813AC23F26A2CFEA00A609F5 /* TJBioAuthenticator.swift */; };
 		813AC24626A2CFF600A609F5 /* alertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813AC24426A2CFF600A609F5 /* alertHelper.swift */; };
 		813AC24726A2CFF600A609F5 /* keyBoardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813AC24526A2CFF600A609F5 /* keyBoardHelper.swift */; };
 		815A6687269EB2BE00E54774 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815A6686269EB2BE00E54774 /* SettingViewController.swift */; };
@@ -95,6 +96,7 @@
 		8107853326A1528B00ED1D0A /* ExportCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportCodeModel.swift; sourceTree = "<group>"; };
 		8114173426A16FF800AFAF93 /* ModifyCodeNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyCodeNameViewController.swift; sourceTree = "<group>"; };
 		8114173726A1800A00AFAF93 /* DeleteCodeHUDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCodeHUDViewController.swift; sourceTree = "<group>"; };
+		8122F90026A66776001717E7 /* ServiceClauseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceClauseViewController.swift; sourceTree = "<group>"; };
 		813AC20E26A2C14A00A609F5 /* UIAlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtension.swift; sourceTree = "<group>"; };
 		813AC21126A2C39B00A609F5 /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
 		813AC23D26A2CFEA00A609F5 /* TJAuthErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TJAuthErrors.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				8114173726A1800A00AFAF93 /* DeleteCodeHUDViewController.swift */,
 				81CEEEDB26A1933E00500E6C /* ExportQRCodeViewController.swift */,
 				81CEEEDE26A19CBE00500E6C /* DeleteExportCodeViewController.swift */,
+				8122F90026A66776001717E7 /* ServiceClauseViewController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8122F8FE26A66216001717E7 /* TJBioAuthenticator.swift in Sources */,
 				8114173026A1542300AFAF93 /* DBase32.swift in Sources */,
 				8114173126A1542300AFAF93 /* MCGCDTime.swift in Sources */,
 				8114173226A1542300AFAF93 /* CustomAnimatedTransitioning.swift in Sources */,
@@ -523,8 +527,8 @@
 				81659ACB269C330F005C9336 /* UISliderExtension.swift in Sources */,
 				8114173826A1800A00AFAF93 /* DeleteCodeHUDViewController.swift in Sources */,
 				81659AD2269C330F005C9336 /* UIImageExtension.swift in Sources */,
-				813AC24226A2CFEA00A609F5 /* TJBioAuthenticator.swift in Sources */,
 				813AC24626A2CFF600A609F5 /* alertHelper.swift in Sources */,
+				8122F90126A66776001717E7 /* ServiceClauseViewController.swift in Sources */,
 				81659AC8269C330F005C9336 /* UIViewControllerExtension.swift in Sources */,
 				81659AC3269C330F005C9336 /* UITextViewExtension.swift in Sources */,
 				81B004B8269D440200F46EC2 /* HomeListTableViewCell.swift in Sources */,
