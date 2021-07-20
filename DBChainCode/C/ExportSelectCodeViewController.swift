@@ -92,7 +92,7 @@ class ExportSelectCodeViewController: UIViewController {
         exportBtn.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().offset(-55)
-            make.width.equalTo(100)
+            make.width.equalTo(160)
             make.height.equalTo(54)
         }
     }

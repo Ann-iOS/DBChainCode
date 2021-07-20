@@ -101,7 +101,6 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
             print("++++++++++++++++++++++++++++++")
             let dpathArr = NSArray(contentsOfFile: codePath)
             self.codeListArr = dpathArr as! [[String:Any]]
-//            print("HomeViewController 数组: \(dpathArr!)")
         } else {
             /// 没有数据
             print("没有数据!!!!")
@@ -156,6 +155,8 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
         leftMenu.presentationStyle.presentingEndAlpha = 1
         SideMenuManager.default.leftMenuNavigationController = leftMenu
 
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
         tableView.tableHeaderView = headerView
         searchTF.frame = CGRect(x: 16, y: 10, width: SCREEN_WIDTH - 32, height: 60)
         headerView.addSubview(searchTF)
@@ -240,8 +241,6 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
             mySelf.timeLabel.text = "\(Int(mySelf.waitTime) + 1)s"
         }
     }
-
-
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -497,9 +496,9 @@ extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewD
         return cell!
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 100
+//    }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60

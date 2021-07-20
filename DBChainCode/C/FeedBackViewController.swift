@@ -30,12 +30,12 @@ class FeedBackViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
 
         self.view.backgroundColor = .white
-        self.title = "发送反馈"
+        self.title = "反馈"
         setup()
     }
 
     func setup(){
-        tipLabel.text = "反馈"
+        tipLabel.text = "发送反馈"
         tipLabel.textColor = .black
         tipLabel.font = UIFont().themeHNMediumFont(size: 34)
 

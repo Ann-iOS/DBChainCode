@@ -34,6 +34,7 @@ class ModifyCodeNameViewController: UIViewController {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont().themeHNMediumFont(size: 34)
+        label.numberOfLines = 0
         return label
     }()
 
@@ -81,7 +82,6 @@ class ModifyCodeNameViewController: UIViewController {
         cNameLabel.snp.makeConstraints { (make) in
             make.left.equalTo(tipLabel)
             make.right.equalToSuperview().offset(-16)
-            make.height.equalTo(48)
             make.top.equalTo(tipLabel.snp.bottom).offset(4)
         }
         backView.snp.makeConstraints { (make) in
@@ -141,5 +141,9 @@ class ModifyCodeNameViewController: UIViewController {
         } else {
             SVProgressHUD.showError(withStatus: "请输入新命名")
         }
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }
