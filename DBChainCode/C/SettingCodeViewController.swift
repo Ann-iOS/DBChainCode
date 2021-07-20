@@ -38,18 +38,31 @@ class SettingCodeViewController: UIViewController {
 
                 if FileTools.sharedInstance.isFileExisted(path: codePath) == true {
                     /// 已经存在  更新数据
-                    let pathArr = NSArray(contentsOfFile: codePath)
-                    dic["index"] = "\(dicArr.count + 1)"
-                    dicArr = pathArr!.adding(dic) as! [[String:Any]]
-                    NSArray(array: dicArr).write(toFile: codePath, atomically: true)
+                    var pathArr = NSArray(contentsOfFile: codePath) as! [[String:Any]]
+                    var keyStrArr :[String] = []
+
+                    for pdic in pathArr {
+                        keyStrArr.append(pdic["keyStr"] as! String)
+                    }
+                    /// 过滤重复
+                    if keyStr.contains(keyStr) {
+                        SVProgressHUD.showError(withStatus: "当前密钥已存在, 不可重复添加")
+                    } else {
+                        dic["index"] = "\(dicArr.count + 1)"
+                        pathArr.append(dic)
+                        dicArr = pathArr
+                        NSArray(array: dicArr).write(toFile: codePath, atomically: true)
+                        SVProgressHUD.showSuccess(withStatus: "添加成功")
+                    }
+                    
                 } else {
                     /// 文件不存在. 直接添加
                     dic["index"] = "\(dicArr.count + 1)"
                     dicArr.append(dic)
                     NSArray(array: dicArr).write(toFile: codePath, atomically: true)
+                    SVProgressHUD.showSuccess(withStatus: "添加成功")
                 }
 
-                SVProgressHUD.showSuccess(withStatus: "添加成功")
                 self.navigationController?.popViewController(animated: true)
 
             } else {

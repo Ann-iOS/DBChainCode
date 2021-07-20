@@ -463,6 +463,44 @@ extension String {
 
 }
 
+extension String {
+    /// 字符串的匹配范围
+    ///
+    /// - Parameters:
+    ///     - matchStr: 要匹配的字符串
+    /// - Returns: 返回所有字符串范围
+    @discardableResult
+    func hw_exMatchStrRange(_ matchStr: String) -> [NSRange] {
+        var selfStr = self as NSString
+        var withStr = Array(repeating: "X", count: (matchStr as NSString).length).joined(separator: "") //辅助字符串
+        if matchStr == withStr { withStr = withStr.lowercased() } //临时处理辅助字符串差错
+        var allRange = [NSRange]()
+        while selfStr.range(of: matchStr).location != NSNotFound {
+            let range = selfStr.range(of: matchStr)
+            allRange.append(NSRange(location: range.location,length: range.length))
+            selfStr = selfStr.replacingCharacters(in: NSMakeRange(range.location, range.length), with: withStr) as NSString
+        }
+        return allRange
+    }
+
+
+    ///（如果backwards参数设置为true，则返回最后出现的位置）
+    func positionOf(sub:String, backwards:Bool = false)->Int {
+        // 如果没有找到就返回-1
+        var pos = -1
+        if let range = range(of:sub, options: backwards ? .backwards : .literal ) {
+            if !range.isEmpty {
+                pos = self.distance(from:startIndex, to:range.lowerBound)
+            }
+        }
+        return pos
+    }
+
+    
+}
+
+
+
 ///  十六进制字符串 转 Uint8    8进制
 
 extension StringProtocol {

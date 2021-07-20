@@ -101,7 +101,7 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
             print("++++++++++++++++++++++++++++++")
             let dpathArr = NSArray(contentsOfFile: codePath)
             self.codeListArr = dpathArr as! [[String:Any]]
-            print("HomeViewController 数组: \(dpathArr!)")
+//            print("HomeViewController 数组: \(dpathArr!)")
         } else {
             /// 没有数据
             print("没有数据!!!!")
@@ -335,8 +335,11 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                 do {
                     let arr :[[String:Any]] = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as! [[String : Any]]
                     var dataArr :[[String:Any]] = []
+                    /// 新增的key值
+                    var addKeyStrArr :[String] = []
                     // 数据处理
                     arr.forEach { (dic) in
+                        addKeyStrArr.append(dic["keyStr"] as! String)
                         var tempDic : [String:Any] = [:]
                         tempDic["name"] = dic["title"]
                         tempDic["keyStr"] = dic["key"]
@@ -348,7 +351,9 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                         /// 已经存在
                         let dpathArr :[[String:Any]] = NSArray(contentsOfFile: codePath) as! [[String : Any]]
                         dpathArr.forEach { (dic) in
-                            dataArr.append(dic)
+                            if !addKeyStrArr.contains(dic["keyStr"] as! String) {
+                                dataArr.append(dic)
+                            }
                         }
                     }
                     NSArray(array: dataArr).write(toFile: codePath, atomically: true)
@@ -356,6 +361,66 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                 } catch {
                     SVProgressHUD.showError(withStatus: "格式错误")
                 }
+            } else if str.hasPrefix("otpauth") {
+
+                let issPosition = str.positionOf(sub: "issuer", backwards: true)
+
+                let nameStr = str.extStringSub(NSRange(location: issPosition + 7, length: str.count - issPosition - 7))
+
+                let idx = str.positionOf(sub: "?")
+
+                let firstNameIndex = str.positionOf(sub: nameStr)
+                let emailStr = str.extStringSub(NSRange(location: firstNameIndex + nameStr.count + 1, length: idx - firstNameIndex - nameStr.count - 1))
+
+                let keyIndex = str.positionOf(sub: "secret")
+                let keyStr = str.extStringSub(NSRange(location: keyIndex + 7, length: issPosition - 1 - keyIndex - 7))
+
+                let data = DBase32().addOTPWithTimerLag(keyStr: keyStr)
+                let generator = TOTPGenerator.init(secret: data, algorithm: kOTPGeneratorSHA1Algorithm, digits: 6,period: 30)
+                let code = generator?.generateOTP()
+                if code != nil {
+                    /// 保存本地
+                    var dicArr :[[String:Any]] = []
+
+                    var dic :Dictionary<String,Any> = ["name":nameStr + "(\(emailStr))",
+                                                       "keyStr":keyStr,
+                                                       "code":code!]
+
+                    if FileTools.sharedInstance.isFileExisted(path: codePath) == true {
+                        /// 已经存在  更新数据
+                        var pathArr = NSArray(contentsOfFile: codePath) as! [[String:Any]]
+                        var keyStrArr :[String] = []
+
+                        for pdic in pathArr {
+                            keyStrArr.append(pdic["keyStr"] as! String)
+                        }
+                        /// 过滤重复
+                        if keyStr.contains(keyStr) {
+                            SVProgressHUD.showError(withStatus: "当前密钥已存在, 不可重复添加")
+                        } else {
+                            dic["index"] = "\(dicArr.count + 1)"
+                            pathArr.append(dic)
+                            dicArr = pathArr
+                            NSArray(array: dicArr).write(toFile: codePath, atomically: true)
+                            SVProgressHUD.showSuccess(withStatus: "添加成功")
+                        }
+
+                    } else {
+                        /// 文件不存在. 直接添加
+                        dic["index"] = "\(dicArr.count + 1)"
+                        dicArr.append(dic)
+                        NSArray(array: dicArr).write(toFile: codePath, atomically: true)
+                        SVProgressHUD.showSuccess(withStatus: "添加成功")
+                    }
+
+                    self.codeListArr = dicArr
+
+                } else {
+                    SVProgressHUD.showError(withStatus: "格式错误")
+                }
+
+            } else {
+                SVProgressHUD.showError(withStatus: "格式错误")
             }
 
         } else {
