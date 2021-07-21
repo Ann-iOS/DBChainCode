@@ -6,7 +6,8 @@
 //
 
 import UIKit
-
+import IQKeyboardManagerSwift
+import SVProgressHUD
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         self.window = UIWindow(frame: UIScreen.main.bounds)
+        IQKeyboardManager.shared.enable = true
+        SVProgressHUD.setErrorImage(UIImage())
+        SVProgressHUD.setImageViewSize(CGSize.zero)
+        SVProgressHUD.setDefaultStyle(.dark)
+        SVProgressHUD.setMinimumDismissTimeInterval(2)
         if (UserDefaults.standard.object(forKey: FaceIDStateKey) == nil){
             UserDefaults.standard.setValue(0, forKey: FaceIDStateKey)
         }

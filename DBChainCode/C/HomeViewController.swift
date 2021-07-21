@@ -19,7 +19,8 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
 
     /// 列表刷新时间
     var waitTime :CGFloat = 30.0
-
+    let TITLES :[String] = ["修改列表","导出账号"]
+    let IMAGES :[String] = ["home_motify_code","home_export_code"]
     let isTimerExistence = MCGCDTimer.shared.isExistTimer(WithTimerName: uploadCodeTimer)
     let sectionTitleLabel = UILabel.init(frame: CGRect(x: 24, y: 20, width: 200, height: 24))
 
@@ -107,10 +108,6 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
             self.gressview.isHidden = true
             self.timeLabel.isHidden = true
         }
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
 
         let currentTime = Date()
         let formatter = DateFormatter()
@@ -119,6 +116,10 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
         let date = formatter.string(from: currentTime)
         self.waitTime = CGFloat(30 - Int(date)! % 30)
         self.gressview.progress = CGFloat(1 - self.waitTime / 30)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
 
     override func viewDidLoad() {
@@ -256,16 +257,17 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
 
     // 展示一个弹出菜单
     @objc func presentMenu(_ sender: UIButton) {
-        YBPopupMenu.showRely(on: rightItem, titles: ["修改列表","导出账号"], icons: ["home_motify_code","home_export_code"], menuWidth: 180) { (menu) in
+        YBPopupMenu.showRely(on: rightItem, titles: TITLES, icons: IMAGES, menuWidth: 180) { (menu) in
             menu?.delegate = self
-            menu!.animationManager.duration = 0.1
-            menu!.cornerRadius = 8
+            menu!.tableView.separatorStyle = .none
             menu!.itemHeight = 64
+            menu!.cornerRadius = 8
+            menu!.animationManager.duration = 0.1
             menu!.arrowDirection = .none
             menu!.arrowPosition = 0
-            menu!.tableView.separatorStyle = .none
             menu!.borderColor = .clear
         }
+
     }
 
     @objc func addCodeString(){
@@ -440,7 +442,52 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
+
+    func ybPopupMenu(_ ybPopupMenu: YBPopupMenu!, cellForRowAt index: Int) -> UITableViewCell! {
+        let cell :YBPopupCell? = YBPopupCell.init(style: .default, reuseIdentifier: "cellID")
+        cell!.backgroundColor = .clear
+        cell!.imgV.image = UIImage(named: self.IMAGES[index])
+        cell!.txtLabel.text = self.TITLES[index]
+        return cell!
+    }
 }
+
+class YBPopupCell: UITableViewCell {
+    lazy var imgV : UIImageView = {
+        let view = UIImageView()
+        return view
+    }()
+
+    lazy var txtLabel : UILabel = {
+        let label = UILabel()
+        label.extSetTextColor(.black, fontSize: 16)
+        return label
+    }()
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(imgV)
+        contentView.addSubview(txtLabel)
+
+        imgV.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(40)
+            make.width.height.equalTo(24)
+        }
+        txtLabel.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.left.equalTo(imgV.snp.right).offset(6)
+            make.right.equalToSuperview().offset(-10)
+        }
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
+
 
 extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate {
 
@@ -480,7 +527,10 @@ extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewD
         }
         cell?.selectionStyle = .none
         cell?.titleLabel.text = self.codeListArr[indexPath.row]["name"] as? String
-        cell?.codeLabel.text = self.codeListArr[indexPath.row]["code"] as? String
+        let code = self.codeListArr[indexPath.row]["code"] as? String
+        let hostStr = code![0...3]
+        let lastStr = code![3...code!.count]
+        cell?.codeLabel.text = hostStr + " \(lastStr)"
         cell?.HomeListCopyCodeWithCellBlock = { [weak self] (cell:HomeListTableViewCell) in
             guard let mySelf = self else {return}
             let index = tableView.indexPath(for: cell)
@@ -495,10 +545,6 @@ extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewD
         }
         return cell!
     }
-
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 100
-//    }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60

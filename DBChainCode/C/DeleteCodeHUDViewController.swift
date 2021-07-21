@@ -97,7 +97,8 @@ class DeleteCodeHUDViewController: UIViewController {
         centerTipLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(tipImageV.snp.bottom).offset(25)
-            make.width.equalTo(240)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
             make.height.equalTo(50)
         }
 

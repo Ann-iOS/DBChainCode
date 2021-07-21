@@ -26,7 +26,6 @@ class HomeListTableViewCell: UITableViewCell {
         self.backgroundColor = .clear
         self.contentView.backgroundColor = .clear
         self.backView.extSetCornerRadius(10)
-//        self.contentView.extSetCornerRadius(10)
         self.codeLabel.font = UIFont.init(name: "Roboto-BoldItalic", size: 40)
     }
 

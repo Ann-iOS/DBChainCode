@@ -10,6 +10,5 @@ target 'DBChainCode' do
   pod 'SYProgressView'
   pod 'SnapKit'
   pod 'swiftScan', :git => 'https://github.com/MxABC/swiftScan.git'
-#  pod 'BiometricAuthentication'
-#  pod  'TJBioAuthentication'
+  pod 'IQKeyboardManagerSwift', '6.5.5'
 end
