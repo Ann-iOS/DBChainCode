@@ -8,7 +8,7 @@
 import UIKit
 import SVProgressHUD
 
-class ExportSelectCodeViewController: UIViewController {
+class ExportSelectCodeViewController: BaseViewController {
 
     var rightItemButton = UIButton.init()
     lazy var tableView : UITableView = {
@@ -66,7 +66,7 @@ class ExportSelectCodeViewController: UIViewController {
             self.codeListArr = dpathArr as! [[String:Any]]
         } else {
             /// 没有数据
-            print("没有数据!!!!")
+//            print("没有数据!!!!")
         }
     }
 

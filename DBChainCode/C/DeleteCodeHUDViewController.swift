@@ -16,7 +16,7 @@ enum DeleteType {
 
 typealias DeleteSuccessBlock = () -> ()
 
-class DeleteCodeHUDViewController: UIViewController {
+class DeleteCodeHUDViewController: BaseViewController {
 
     var deleteSuccessBlock :DeleteSuccessBlock?
 

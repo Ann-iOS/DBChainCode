@@ -10,7 +10,7 @@ import UIKit
 
 typealias AddCodeWithSettingKeyBlock = () -> ()
 typealias AddCodeWithScanClick = () -> ()
-class AddCodeViewController: UIViewController, UINavigationControllerDelegate {
+class AddCodeViewController: BaseViewController, UINavigationControllerDelegate {
 
     var addCodeSettingKeyStringBlock :AddCodeWithSettingKeyBlock?
     var addCodeWithScanClick: AddCodeWithScanClick?

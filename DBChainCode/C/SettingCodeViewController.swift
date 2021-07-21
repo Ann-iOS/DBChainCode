@@ -11,7 +11,7 @@ import SVProgressHUD
 /// 保存 code plist 路径
 let codePath = FileTools.sharedInstance.docDir() + "/codes.plist"
 
-class SettingCodeViewController: UIViewController {
+class SettingCodeViewController: BaseViewController {
 
     lazy var contenView : SettingCodeView = {
         let view = SettingCodeView()

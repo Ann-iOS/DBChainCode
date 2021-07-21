@@ -8,7 +8,7 @@
 import UIKit
 //import TJBioAuthentication
 
-class PrivacyFaceIDViewController: UIViewController {
+class PrivacyFaceIDViewController: BaseViewController {
 
     var tipStr = "启动隐私屏幕保护后，需要使用Face ID才能访问此应用"
 

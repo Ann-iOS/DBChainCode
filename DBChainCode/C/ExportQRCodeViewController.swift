@@ -8,11 +8,10 @@
 import UIKit
 import swiftScan
 
-class ExportQRCodeViewController: UIViewController {
+class ExportQRCodeViewController: BaseViewController {
 
     var qrCodeStr: String = ""{
         didSet{
-            print("生成二维码数据: \(qrCodeStr)")
         qrcodeImgV.image = LBXScanWrapper.createCode(codeType: "CIQRCodeGenerator", codeString: qrCodeStr, size: CGSize(width: 234, height: 234), qrColor: .black, bkColor: .white)
         }
     }

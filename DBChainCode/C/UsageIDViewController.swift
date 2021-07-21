@@ -8,7 +8,7 @@
 import UIKit
 import SVProgressHUD
 
-class UsageIDViewController: UIViewController {
+class UsageIDViewController: BaseViewController {
 
     let tipStr = "DBChain Usage ID是随您的     DBChain产品使用情況信息一起发送的一小段文本,DBChain不会使用此信息来识别您的身份,也不会将其与您的DBChain帐号相关联,而是用来为所有用户改进DBChain产品与服务使用体验。\n\n您的设备会将您的 DBChain产品使用体验信息发送给 DBChain。 DBChain将使用这些信息来改进产品。我们的隐私权政策阐述了我们在使用这些信息的过程中如何保护您的隐私权。"
     lazy var resetBtn : UIButton = {

@@ -8,7 +8,7 @@
 import UIKit
 import SVProgressHUD
 
-class ModifyCodeNameViewController: UIViewController {
+class ModifyCodeNameViewController: BaseViewController {
 
 //    var currentName :String = ""{
 //        didSet{

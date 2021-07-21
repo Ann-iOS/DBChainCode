@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DeleteExportCodeViewController: UIViewController {
+class DeleteExportCodeViewController: BaseViewController {
 
     let imgV = UIImageView(image: UIImage(named: "delete_alone_code"))
     let tipLabel = UILabel.init()

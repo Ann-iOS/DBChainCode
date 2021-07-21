@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81024EC226A80E5B00CDBF78 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81024EC126A80E5B00CDBF78 /* BaseViewController.swift */; };
 		8107853426A1528B00ED1D0A /* ExportCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107853326A1528B00ED1D0A /* ExportCodeModel.swift */; };
 		8114173026A1542300AFAF93 /* DBase32.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107853026A1526E00ED1D0A /* DBase32.swift */; };
 		8114173126A1542300AFAF93 /* MCGCDTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107853126A1526E00ED1D0A /* MCGCDTime.swift */; };
@@ -90,6 +91,7 @@
 /* Begin PBXFileReference section */
 		06D5FC66AB045CDD3BD5BAB2 /* Pods-DBChainCode.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBChainCode.release.xcconfig"; path = "Target Support Files/Pods-DBChainCode/Pods-DBChainCode.release.xcconfig"; sourceTree = "<group>"; };
 		1A45A9C5BCD313A1A3CB497F /* Pods_DBChainCode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DBChainCode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		81024EC126A80E5B00CDBF78 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8107853026A1526E00ED1D0A /* DBase32.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBase32.swift; sourceTree = "<group>"; };
 		8107853126A1526E00ED1D0A /* MCGCDTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCGCDTime.swift; sourceTree = "<group>"; };
 		8107853226A1526E00ED1D0A /* CustomAnimatedTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnimatedTransitioning.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				81659A9A269C330E005C9336 /* Utils */,
 				81659A5F269C22FC005C9336 /* AppDelegate.swift */,
 				81659A63269C22FC005C9336 /* ViewController.swift */,
+				81024EC126A80E5B00CDBF78 /* BaseViewController.swift */,
 				81659A76269C32D2005C9336 /* BaseNavigationController.swift */,
 				81659A65269C22FC005C9336 /* Main.storyboard */,
 				81659A68269C22FE005C9336 /* Assets.xcassets */,
@@ -531,6 +534,7 @@
 				8122F90126A66776001717E7 /* ServiceClauseViewController.swift in Sources */,
 				81659AC8269C330F005C9336 /* UIViewControllerExtension.swift in Sources */,
 				81659AC3269C330F005C9336 /* UITextViewExtension.swift in Sources */,
+				81024EC226A80E5B00CDBF78 /* BaseViewController.swift in Sources */,
 				81B004B8269D440200F46EC2 /* HomeListTableViewCell.swift in Sources */,
 				81659AD0269C330F005C9336 /* StringExtension.swift in Sources */,
 				815A6692269EDD8400E54774 /* SettingCodeViewController.swift in Sources */,

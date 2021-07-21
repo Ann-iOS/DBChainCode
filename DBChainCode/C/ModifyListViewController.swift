@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ModifyListViewController: UIViewController {
+class ModifyListViewController: BaseViewController {
 
     /// 手势储存point,保证有两个,为初始点和结束点
     private var touchPoints: [CGPoint] = []
@@ -46,13 +46,11 @@ class ModifyListViewController: UIViewController {
 
         if FileTools.sharedInstance.isFileExisted(path: codePath) {
             /// 已经存在
-            print("++++++++++++++++++++++++++++++")
             let dpathArr = NSArray(contentsOfFile: codePath)
             self.codeListArr = dpathArr as! [[String:Any]]
-            print("plist 数组: \(dpathArr!)")
         } else {
             /// 没有数据
-            print("没有数据!!!!")
+//            print("没有数据!!!!")
         }
     }
 
@@ -248,7 +246,6 @@ extension ModifyListViewController: UITableViewDragDelegate,UITableViewDropDeleg
             self.codeListArr.insert(dic, at: destinationIndexPath.row)
         }
         NSArray(array: self.codeListArr).write(toFile: codePath, atomically: true)
-        print("拖拽后数组: \(self.codeListArr)")
     }
 }
 

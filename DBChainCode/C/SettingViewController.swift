@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingViewController: UIViewController {
+class SettingViewController: BaseViewController {
 
     let SettingTableViewIdentifier = "SETTINGCELLID"
     let cellTieleArr:[String] = ["隐私保护屏幕","DBChain Usage ID"]

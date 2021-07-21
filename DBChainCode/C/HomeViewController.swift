@@ -15,7 +15,7 @@ import SVProgressHUD
 
 let uploadCodeTimer = "UPLOADCODETIMER"
 
-class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewControllerDelegate {
+class HomeViewController: BaseViewController, YBPopupMenuDelegate ,LBXScanViewControllerDelegate {
 
     /// 列表刷新时间
     var waitTime :CGFloat = 30.0
@@ -100,13 +100,11 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
 
         if FileTools.sharedInstance.isFileExisted(path: codePath) {
             /// 已经存在
-            print("++++++++++++++++++++++++++++++")
             let dpathArr = NSArray(contentsOfFile: codePath)
             self.codeListArr = dpathArr as! [[String:Any]]
             self.tempCodeListArr = self.codeListArr
         } else {
             /// 没有数据
-            print("没有数据!!!!")
             self.gressview.isHidden = true
             self.timeLabel.isHidden = true
             self.codeListArr.removeAll()
@@ -332,7 +330,6 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
     /// 扫描内容解析
     func scanFinished(scanResult: LBXScanResult, error: String?) {
         if scanResult.strScanned!.count > 0 {
-            print("扫描原始数据: \(scanResult.strScanned!)")
             let str = scanResult.strScanned!
             if str.contains("[{"),str.contains("}]") {
                 let jsonData :Data = str.data(using: .utf8)!
@@ -382,10 +379,8 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
 
                 let firstNameIndex = str.positionOf(sub: nameStr)
                 let emailStr = str.extStringSub(NSRange(location: firstNameIndex + nameStr.count + 1, length: idx - firstNameIndex - nameStr.count - 1))
-                print("新增名称: \(emailStr)")
                 /// URL 编码转换
                 let urlEmailStr = emailStr.removingPercentEncoding
-                print("新增URL名称 :\(urlEmailStr ?? "")")
 
                 let keyIndex = str.positionOf(sub: "secret")
                 let keyStr = str.extStringSub(NSRange(location: keyIndex + 7, length: issPosition - 1 - keyIndex - 7))
@@ -586,24 +581,24 @@ extension HomeViewController: SideMenuNavigationControllerDelegate ,UITableViewD
         }
     }
 
-    // 侧栏菜单将要显示时触发
-    func sideMenuWillAppear(menu: SideMenuNavigationController, animated: Bool) {
-        print("菜单将要显示! (是否有动画: \(animated))")
-    }
-
-    // 侧栏菜单显示完毕时触发
-    func sideMenuDidAppear(menu: SideMenuNavigationController, animated: Bool) {
-        print("菜单显示完成! (是否有动画: \(animated))")
-    }
-
-    // 侧栏菜单将要隐藏时触发
-    func sideMenuWillDisappear(menu: SideMenuNavigationController, animated: Bool) {
-        print("菜单将要隐藏!(是否有动画: \(animated))")
-    }
-
-    // 侧栏菜单隐藏完毕时触发
-    func sideMenuDidDisappear(menu: SideMenuNavigationController, animated: Bool) {
-        print("菜单隐藏完毕!(是否有动画: \(animated))")
-    }
+//    // 侧栏菜单将要显示时触发
+//    func sideMenuWillAppear(menu: SideMenuNavigationController, animated: Bool) {
+//        print("菜单将要显示! (是否有动画: \(animated))")
+//    }
+//
+//    // 侧栏菜单显示完毕时触发
+//    func sideMenuDidAppear(menu: SideMenuNavigationController, animated: Bool) {
+//        print("菜单显示完成! (是否有动画: \(animated))")
+//    }
+//
+//    // 侧栏菜单将要隐藏时触发
+//    func sideMenuWillDisappear(menu: SideMenuNavigationController, animated: Bool) {
+//        print("菜单将要隐藏!(是否有动画: \(animated))")
+//    }
+//
+//    // 侧栏菜单隐藏完毕时触发
+//    func sideMenuDidDisappear(menu: SideMenuNavigationController, animated: Bool) {
+//        print("菜单隐藏完毕!(是否有动画: \(animated))")
+//    }
 
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExportCodeViewController: UIViewController {
+class ExportCodeViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

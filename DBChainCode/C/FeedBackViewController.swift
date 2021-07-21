@@ -8,7 +8,7 @@
 import UIKit
 import SVProgressHUD
 
-class FeedBackViewController: UIViewController, UITextViewDelegate {
+class FeedBackViewController: BaseViewController, UITextViewDelegate {
 
     lazy var feedTextView : UITextView = {
         let view = UITextView()

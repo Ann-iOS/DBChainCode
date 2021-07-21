@@ -9,7 +9,7 @@ import UIKit
 import SideMenu
 import SnapKit
 
-class MenuViewController: UIViewController {
+class MenuViewController: BaseViewController {
 
 
     lazy var feedbackBtn : UIButton = {

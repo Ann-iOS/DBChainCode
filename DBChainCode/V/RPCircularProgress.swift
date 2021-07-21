@@ -109,7 +109,6 @@ open class RPCircularProgress: UIView {
             return progressLayer.progress
         }
         set {
-            print("设置新进度 : \(progress)")
             progressLayer.progress = newValue
             progressLayer.setNeedsDisplay()
         }

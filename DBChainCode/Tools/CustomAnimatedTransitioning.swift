@@ -38,8 +38,6 @@ class CustomAnimatedTransitioning: NSObject,UIViewControllerAnimatedTransitionin
         let path1 = UIBezierPath.init(ovalIn: btn!.frame)
 
         let path2 = UIBezierPath.init(arcCenter: btn!.center, radius: CGFloat(sqrtf(Float(btn!.center.x*btn!.center.x + btn!.center.y*btn!.center.y))), startAngle: 0, endAngle: CGFloat(Double.pi*2), clockwise: true)
-        print("\(Float(btn!.center.x*btn!.center.x + btn!.center.y*btn!.center.y))")
-
         
         let layer = CAShapeLayer.init()
         if isPush == true {
