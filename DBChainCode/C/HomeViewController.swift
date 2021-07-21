@@ -340,7 +340,7 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                     var addKeyStrArr :[String] = []
                     // 数据处理
                     arr.forEach { (dic) in
-                        addKeyStrArr.append(dic["keyStr"] as! String)
+                        addKeyStrArr.append(dic["key"] as! String)
                         var tempDic : [String:Any] = [:]
                         tempDic["name"] = dic["title"]
                         tempDic["keyStr"] = dic["key"]
@@ -359,6 +359,7 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                     }
                     NSArray(array: dataArr).write(toFile: codePath, atomically: true)
                     self.codeListArr = dataArr
+                    SVProgressHUD.showSuccess(withStatus: "添加成功")
                 } catch {
                     SVProgressHUD.showError(withStatus: "格式错误")
                 }
