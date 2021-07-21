@@ -49,7 +49,6 @@ class ExportSelectCodeViewController: UIViewController {
                 let model = ExportCodeModel()
                 model.accountStr = dic["name"] as? String
                 model.keyStr = dic["keyStr"] as? String
-                model.index = dic["index"] as? String
                 model.code = dic["code"] as? String
                 model.isSelect = false
                 modelArr.append(model)

@@ -90,6 +90,7 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                 self.gressview.isHidden = false
                 self.timeLabel.isHidden = false
             }
+
             self.tableView.reloadData()
         }
     }
@@ -102,11 +103,14 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
             print("++++++++++++++++++++++++++++++")
             let dpathArr = NSArray(contentsOfFile: codePath)
             self.codeListArr = dpathArr as! [[String:Any]]
+            self.tempCodeListArr = self.codeListArr
         } else {
             /// 没有数据
             print("没有数据!!!!")
             self.gressview.isHidden = true
             self.timeLabel.isHidden = true
+            self.codeListArr.removeAll()
+            self.tempCodeListArr.removeAll()
         }
 
         let currentTime = Date()
@@ -137,7 +141,7 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
         sectionTitleLabel.textColor = .black
         sectionTitleLabel.text = "     账号列表"
         /// 保存全部数据  搜索清空后恢复
-        self.tempCodeListArr = self.codeListArr
+//        self.tempCodeListArr = self.codeListArr
 
         let leftItem = UIBarButtonItem.init(image: UIImage(named: "home_left_item"), style: .plain, target: self, action: #selector(showLeftMenu(_:)))
         self.navigationItem.leftBarButtonItem = leftItem
@@ -210,7 +214,6 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                             if code != nil {
                                 let dic :Dictionary<String,Any> = ["name":tempDic["name"] as! String,
                                                                    "keyStr":tempDic["keyStr"] as! String,
-                                                                   "index":tempDic["index"] as! String,
                                                                    "code":code!]
                                 nameArr.append(tempDic["name"] as! String)
                                 dicArr.append(dic)
@@ -344,10 +347,16 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                         var tempDic : [String:Any] = [:]
                         tempDic["name"] = dic["title"]
                         tempDic["keyStr"] = dic["key"]
-                        tempDic["code"] = dic["code"]
-                        tempDic["index"] = "0"
+
+                        let data = DBase32().addOTPWithTimerLag(keyStr: dic["key"] as! String)
+                        let generator = TOTPGenerator.init(secret: data, algorithm: kOTPGeneratorSHA1Algorithm, digits: 6,period: 30)
+                        let code = generator?.generateOTP()
+                        if code != nil {
+                            tempDic["code"] = code
+                        }
                         dataArr.append(tempDic)
                     }
+
                     if FileTools.sharedInstance.isFileExisted(path: codePath) {
                         /// 已经存在
                         let dpathArr :[[String:Any]] = NSArray(contentsOfFile: codePath) as! [[String : Any]]
@@ -388,7 +397,7 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                     /// 保存本地
                     var dicArr :[[String:Any]] = []
 
-                    var dic :Dictionary<String,Any> = ["name":nameStr + "(\(urlEmailStr ?? ""))",
+                    let dic :Dictionary<String,Any> = ["name":nameStr + "(\(urlEmailStr ?? ""))",
                                                        "keyStr":keyStr,
                                                        "code":code!]
 
@@ -404,7 +413,6 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
                         if keyStrArr.contains(keyStr) {
                             SVProgressHUD.showError(withStatus: "当前密钥已存在, 不可重复添加")
                         } else {
-                            dic["index"] = "\(dicArr.count + 1)"
                             pathArr.append(dic)
                             dicArr = pathArr
                             NSArray(array: dicArr).write(toFile: codePath, atomically: true)
@@ -413,7 +421,6 @@ class HomeViewController: UIViewController, YBPopupMenuDelegate ,LBXScanViewCont
 
                     } else {
                         /// 文件不存在. 直接添加
-                        dic["index"] = "\(dicArr.count + 1)"
                         dicArr.append(dic)
                         NSArray(array: dicArr).write(toFile: codePath, atomically: true)
                         SVProgressHUD.showSuccess(withStatus: "添加成功")

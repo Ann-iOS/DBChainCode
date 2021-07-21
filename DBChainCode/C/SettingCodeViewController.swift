@@ -32,7 +32,7 @@ class SettingCodeViewController: UIViewController {
                 /// 保存本地
                 var dicArr :[[String:Any]] = []
                 
-                var dic :Dictionary<String,Any> = ["name":accountStr,
+                let dic :Dictionary<String,Any> = ["name":accountStr,
                                                    "keyStr":keyStr,
                                                    "code":code!]
 
@@ -48,7 +48,6 @@ class SettingCodeViewController: UIViewController {
                     if keyStrArr.contains(keyStr) {
                         SVProgressHUD.showError(withStatus: "当前密钥已存在, 不可重复添加")
                     } else {
-                        dic["index"] = "\(dicArr.count + 1)"
                         pathArr.append(dic)
                         dicArr = pathArr
                         NSArray(array: dicArr).write(toFile: codePath, atomically: true)
@@ -57,7 +56,6 @@ class SettingCodeViewController: UIViewController {
                     
                 } else {
                     /// 文件不存在. 直接添加
-                    dic["index"] = "\(dicArr.count + 1)"
                     dicArr.append(dic)
                     NSArray(array: dicArr).write(toFile: codePath, atomically: true)
                     SVProgressHUD.showSuccess(withStatus: "添加成功")

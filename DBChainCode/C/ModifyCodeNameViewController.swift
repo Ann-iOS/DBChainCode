@@ -127,10 +127,11 @@ class ModifyCodeNameViewController: UIViewController {
 
                 for (idx,tempdic) in tempArr.enumerated() {
                     var newDic :[String:Any] = tempdic
-                    if tempdic["name"] as! String == dic["name"] as! String {
+                    if tempdic["keyStr"] as! String == dic["keyStr"] as! String {
                         newDic["name"] = self.newNameTF.text!
                     }
                     newArr.append(newDic)
+
                     if idx == tempArr.count - 1{
                         NSArray(array: newArr).write(toFile: codePath, atomically: true)
                         SVProgressHUD.showSuccess(withStatus: "修改成功")
