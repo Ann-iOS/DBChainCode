@@ -102,6 +102,7 @@ class HomeViewController: BaseViewController, YBPopupMenuDelegate ,LBXScanViewCo
             /// 已经存在
             let dpathArr = NSArray(contentsOfFile: codePath)
             self.codeListArr = dpathArr as! [[String:Any]]
+            /// 保存全部数据  搜索清空后恢复
             self.tempCodeListArr = self.codeListArr
         } else {
             /// 没有数据
@@ -117,6 +118,7 @@ class HomeViewController: BaseViewController, YBPopupMenuDelegate ,LBXScanViewCo
         formatter.dateFormat = "ss"
         let date = formatter.string(from: currentTime)
         self.waitTime = CGFloat(30 - Int(date)! % 30)
+//        print("当前时间秒数: \(self.waitTime)")
         self.gressview.progress = CGFloat(1 - self.waitTime / 30)
     }
 
@@ -138,8 +140,6 @@ class HomeViewController: BaseViewController, YBPopupMenuDelegate ,LBXScanViewCo
         sectionTitleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         sectionTitleLabel.textColor = .black
         sectionTitleLabel.text = "     账号列表"
-        /// 保存全部数据  搜索清空后恢复
-//        self.tempCodeListArr = self.codeListArr
 
         let leftItem = UIBarButtonItem.init(image: UIImage(named: "home_left_item"), style: .plain, target: self, action: #selector(showLeftMenu(_:)))
         self.navigationItem.leftBarButtonItem = leftItem
@@ -192,6 +192,7 @@ class HomeViewController: BaseViewController, YBPopupMenuDelegate ,LBXScanViewCo
 
         MCGCDTimer.shared.scheduledDispatchTimer(WithTimerName: uploadCodeTimer, timeInterval: 0.01, queue: .main, repeats: true) {[weak self] in
             guard let mySelf = self else {return}
+
             mySelf.gressview.progress = CGFloat(1 - mySelf.waitTime / 30)
             mySelf.waitTime -= 0.01
             if mySelf.waitTime < 0 {
@@ -291,7 +292,6 @@ class HomeViewController: BaseViewController, YBPopupMenuDelegate ,LBXScanViewCo
                 style.photoframeAngleW = 24
                 style.photoframeAngleH = 24
                 style.isNeedShowRetangle = true
-
                 style.anmiationStyle = LBXScanViewAnimationStyle.NetGrid
 
                 //使用的里面网格图片
@@ -455,6 +455,8 @@ class HomeViewController: BaseViewController, YBPopupMenuDelegate ,LBXScanViewCo
     }
 }
 
+
+/// 自定义PopViewCell
 class YBPopupCell: UITableViewCell {
     lazy var imgV : UIImageView = {
         let view = UIImageView()
