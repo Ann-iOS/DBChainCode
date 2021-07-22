@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>库链验证器</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -17,23 +19,25 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>库链验证器申请使用您的相机, 用于扫描二维码等功能</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>$(PRODUCT_NAME) 需要 Face ID 权限才能使用人脸识别进行身份验证</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>库链验证器申请使用您的相机, 用于扫描二维码等功能</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Roboto-BoldItalic.ttf</string>
+	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>NSCameraUsageDescription</key>
-	<string>DBChainCode申请使用您的相机, 用于扫描二维码等功能</string>
-	<key>NSFaceIDUsageDescription</key>
-	<string>$(PRODUCT_NAME) 需要 Face ID 权限才能使用人脸识别进行身份验证</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Roboto-BoldItalic.ttf</string>
-	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

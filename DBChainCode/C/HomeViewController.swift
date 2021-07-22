@@ -329,7 +329,7 @@ class HomeViewController: BaseViewController, YBPopupMenuDelegate ,LBXScanViewCo
 
     /// 扫描内容解析
     func scanFinished(scanResult: LBXScanResult, error: String?) {
-        if scanResult.strScanned!.count > 0 {
+        if scanResult.strScanned?.count ?? 0 > 0 {
             let str = scanResult.strScanned!
             if str.contains("[{"),str.contains("}]") {
                 let jsonData :Data = str.data(using: .utf8)!
@@ -369,7 +369,7 @@ class HomeViewController: BaseViewController, YBPopupMenuDelegate ,LBXScanViewCo
                 } catch {
                     SVProgressHUD.showError(withStatus: "格式错误")
                 }
-            } else if str.hasPrefix("otpauth") {
+            } else if str.hasPrefix("otpauth://totp/") {
 
                 let issPosition = str.positionOf(sub: "issuer", backwards: true)
 
