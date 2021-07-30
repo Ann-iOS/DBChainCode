@@ -225,7 +225,6 @@
 			children = (
 				813AC24426A2CFF600A609F5 /* alertHelper.swift */,
 				813AC24526A2CFF600A609F5 /* keyBoardHelper.swift */,
-				8107853026A1526E00ED1D0A /* DBase32.swift */,
 				8107853126A1526E00ED1D0A /* MCGCDTime.swift */,
 				8107853226A1526E00ED1D0A /* CustomAnimatedTransitioning.swift */,
 				813AC20E26A2C14A00A609F5 /* UIAlertControllerExtension.swift */,
@@ -237,6 +236,7 @@
 		813AC23C26A2CFEA00A609F5 /* BioAuth */ = {
 			isa = PBXGroup;
 			children = (
+				8107853026A1526E00ED1D0A /* DBase32.swift */,
 				813AC23D26A2CFEA00A609F5 /* TJAuthErrors.swift */,
 				813AC23E26A2CFEA00A609F5 /* TJDefaultMessages.swift */,
 				813AC23F26A2CFEA00A609F5 /* TJBioAuthenticator.swift */,
